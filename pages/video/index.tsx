@@ -1,11 +1,11 @@
-import SiteLayout from "../layout/SiteLayout"
-import VideoLayout from "../layout/VideoLayout"
-import useUser from '../lib/useUser'
+import SiteLayout from "../../layout/SiteLayout"
+import VideoLayout from "../../layout/VideoLayout"
+import useUser from '../../lib/useUser'
 import { useRouter } from 'next/router'
 import { useEffect } from "react"
-import useMyUser from '../lib/useMyUser'
+import useMyUser from '../../lib/useMyUser'
 
-export default function Video() {
+export default function VideoPage() {
 
     //const { data, isLoading, isError } = useUser()
     const {data, isLoading, isError } = useMyUser()
@@ -41,7 +41,7 @@ export default function Video() {
 }
 
 
-Video.getLayout = function getLayout(page) {
+VideoPage.getLayout = function getLayout(page) {
     return (
         <SiteLayout>
             <VideoLayout>

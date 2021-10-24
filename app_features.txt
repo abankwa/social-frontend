@@ -1,6 +1,6 @@
 
 Database
---------
+========
 1. person table
 	- email : UNIQUE, NOT NULL
 	- consider splitting into person and person_auth with 1-to-1 relationship. on sign in join person with person_auth and return
@@ -20,9 +20,41 @@ Database
 5. comment table
 	-
 
+Messenger
+---------
+
+Entities: 
+    chat, participants, messages
+
+Relationships:
+    1 chat -> n participants, 1 participant -> n chats  : many-to-many
+    1 chat -> n messages                                : 1-to-many
+    1 participant -> n messages                         : 1-to-many
+
+chat
+    chatId[PK]
+    Title
+    timestamp
+
+junction
+    [participantId [FK]
+    chatId [FK]] PK
+
+participant
+    same as User
+
+messages
+    messageId[PK]   -- same as message sequence number
+    chatId [FK]
+    participantId[FK]
+    message
+    timestamp
 
 
 
+
+APPLICATION
+===========
 
 Authentication 
 --------------
@@ -67,6 +99,7 @@ TODO features
   OR all API calls must be authenticated. do auth checks in the backend; don't check auth, send response to frontend then go to db. instead
   do both auth checks and db dip in the backend.
 -showing posts from friends and news on user's feed
+-highlighting active nav page button based on current url, not on click.
 
 
 Issue list

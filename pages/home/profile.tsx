@@ -1,11 +1,11 @@
-import SiteLayout from "../layout/SiteLayout"
-import NewsLayout from "../layout/NewsLayout"
-import useUser from '../lib/useUser'
+import SiteLayout from "../../layout/SiteLayout"
+import useUser from '../../lib/useUser'
 import { useRouter } from 'next/router'
-import useMyUser from '../lib/useMyUser'
+import useMyUser from '../../lib/useMyUser'
+import HomeLayout from "../../layout/HomeLayout"
 
 
-export default function News() {
+export default function ProfilePage() {
 
     //Verify Login status
     //const { data, isLoading, isError } = useUser()
@@ -19,23 +19,23 @@ export default function News() {
     //login session not found, redirect to login page
     if (data.status === 'error') router.push('/')
 
-    
+    console.log(JSON.stringify(data))
+    const {email, firstName, lastName} = data.data
     
     return (
         <>
-            <h2>News</h2>
-            <div>News page working</div>
+            <h2>{`${firstName} 's profile`}</h2>
         </>
     )
 }
 
 
-News.getLayout = function getLayout(page) {
+ProfilePage.getLayout = function getLayout(page) {
     return (
         <SiteLayout>
-            <NewsLayout>
+            <HomeLayout>
                 {page}
-            </NewsLayout>
+            </HomeLayout>
         </SiteLayout>
     )
 }

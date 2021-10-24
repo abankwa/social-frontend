@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Home from '../components/Home/Home'
-import SiteLayout from '../layout/SiteLayout'
-import HomeLayout from '../layout/HomeLayout'
+import Home from '../../components/Home/Home'
+import SiteLayout from '../../layout/SiteLayout'
+import HomeLayout from '../../layout/HomeLayout'
 import { useRouter } from 'next/router'
-import useUser from '../lib/useUser'
-import NoLayout from '../layout/NoLayout'
-import useUserQuery from '../lib/useUserQuery'
-import useMyUser from '../lib/useMyUser'
+import useUser from '../../lib/useUser'
+import NoLayout from '../../layout/NoLayout'
+import useUserQuery from '../../lib/useUserQuery'
+import useMyUser from '../../lib/useMyUser'
 import { useQuery, useQueryClient } from 'react-query'
 
 
-export default function App2() {
+export default function HomePage() {
 
   const router = useRouter()
 
@@ -51,7 +51,7 @@ export default function App2() {
 
 
 
-App2.getLayout = function getLayout(page) {
+HomePage.getLayout = function getLayout(page) {
 
   return (
     <SiteLayout>
