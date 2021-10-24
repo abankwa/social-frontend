@@ -1,17 +1,26 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import Layout from '../components/Layout'
-import { useRouter } from 'next/router'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
-function MyApp({ Component, pageProps }: AppProps) {
 
-  const router = useRouter();
-  console.log(JSON.stringify(router))
-  //return <Component {...pageProps} />
-  return (
-    <Layout>
-      <Component {...pageProps}/>
-    </Layout>
-  )
+
+export default function MyApp({ Component, pageProps }: AppProps) {
+
+    const queryClient = new QueryClient();
+
+    //   //return <Component {...pageProps} />
+    //   return (
+    //       <Component {...pageProps}/>
+    //   )
+    // }
+
+    const getLayout = Component.getLayout || ((page) => page)
+
+    return getLayout(
+        <QueryClientProvider client={queryClient}>
+            <Component {...pageProps} />
+            <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>)
+
 }
-export default MyApp

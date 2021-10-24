@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Login from '../components/Home/Login'
 import Home from '../components/Home/Home'
-import Test from '../components/Test'
-import { SessionContext } from '../context/SessionContext'
 import SiteLayout from '../layout/SiteLayout'
 import HomeLayout from '../layout/HomeLayout'
 import { useRouter } from 'next/router'
@@ -13,31 +10,36 @@ import useMyUser from '../lib/useMyUser'
 import { useQuery, useQueryClient } from 'react-query'
 
 
-export default function App() {
+export default function App2() {
 
   const router = useRouter()
+
   //const { data, isLoading, isError } = useUser()
   //const {data, isLoading, isError } = useUserQuery()
-  const {data, isLoading, isError } = useMyUser()
-
+  const { data, isLoading, isError } = useMyUser()
 
   if (isLoading) return <div>loading from index...</div>;
   if (isError) return <div>failed to load</div>;
 
-  if(data.status === 'success')router.push('/home')
+  //login session not found, redirect to login page
+  if (data.status === 'error') router.push('/')
 
   return (
 
     <>
-    {/* no user session, go to login*/}
-      {!data.data && <Login />}
-
-
+      {data.data &&
+  
+            <Home data={data} />
+   
+      }
 
 
 
       <style jsx>{`
         
+        body {
+          background-color: green;
+        }
         
 
       `}
@@ -49,12 +51,14 @@ export default function App() {
 
 
 
-App.getLayout = function getLayout(page) {
+App2.getLayout = function getLayout(page) {
 
   return (
-    <NoLayout>
+    <SiteLayout>
+    <HomeLayout>
       {page}
-    </NoLayout>
+    </HomeLayout>
+  </SiteLayout>
   )
 }
 

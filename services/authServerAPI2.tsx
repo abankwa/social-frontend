@@ -32,20 +32,14 @@ export async function signInWithEmailAndPassword(credentials) {
 }
 
 
-export async function verifyAccessTokenFromCookie() {
-
-    try {
-        const raw = await fetch('http://localhost:4000/auth/token/verify', {
+export function fetcher(url) {
+  
+         fetch(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'  //send httponly cookie
-        })
-        const data = await raw.json()
-        //console.log(data)
-        return data;
-    } catch (error) {
-        throw error
-    }
+        }).then(res => res.json())
+        
 }
 
 
@@ -61,9 +55,9 @@ export async function signOut(){
             credentials: 'include'
         })
         const data = await raw.json()
-        
+        console.log(data)
         return data;
     } catch (error) {
-        throw error
+        console.log(error)
     }
 }

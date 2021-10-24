@@ -1,0 +1,80 @@
+
+Database
+--------
+1. person table
+	- email : UNIQUE, NOT NULL
+	- consider splitting into person and person_auth with 1-to-1 relationship. on sign in join person with person_auth and return
+	  desired attributes. on sign up, write to parent table, then child table.
+
+
+2. friends table
+	- a junction table for many-to-many friend relationship; same person table on both sides
+	- PK = user + friend ; composite key
+
+3. post table
+	-
+
+4. reaction table
+	- 
+
+5. comment table
+	-
+
+
+
+
+
+Authentication 
+--------------
+Flow:
+  - create useUser hook for checking auth status of user (verify token)
+  - each main page (not component) and protected routes  calls useUser at the top to verify login session, 
+    and redirects to login page is user is not logged in. this takes care of direct access to pages eg. /home, /video etc
+  - all protected routes are also authenticated on the express server using a middleware
+
+index Page:
+  - same route ('/') used for Login and Home components
+  - loads Login component if user not logged in, loads Home component if logged in
+  - Login component gets NoLayout layout via getLayout selector, Home component manually wrapped with appropriate layouts
+
+home, news, video pages
+  - for each page (not component) verify login status with useUser at the top. if not logged redirect to Login, else load page content (component) 
+    passing the user context received from useUser as prop. ie. we call useUser only on the pages but not component. 
+  - if login is verified, we load respective Home, News or Video components. these inner components do not call useUser, they get user context from props.
+
+
+
+Layout
+------
+Flow:
+  - each page uses containment pattern and getLayout selector for layout
+  - index page uses one layout for Home component (via manually wrapped) and another layout for Login component(via getLayout selector)
+
+
+Posts
+-----
+
+
+
+
+
+TODO features
+-------------
+- modal signup
+- active link for selected dashboard
+- drop down nav for chat, notif, user
+- protecting routes that do database query; any action generating db lookup must be protected
+  OR all API calls must be authenticated. do auth checks in the backend; don't check auth, send response to frontend then go to db. instead
+  do both auth checks and db dip in the backend.
+-showing posts from friends and news on user's feed
+
+
+Issue list
+----------
+- flickering components when directly going to page url eg. /news
+
+
+Ref
+===
+https://www.youtube.com/watch?v=dBotWYKYYWc
+	-uploading of images, store image on cloud storage bucket
