@@ -19,7 +19,7 @@ export default function ProfilePage() {
     //login session not found, redirect to login page
     if (data.status === 'error') router.push('/')
 
-    console.log(JSON.stringify(data))
+    
     const {email, firstName, lastName} = data.data
     
     return (

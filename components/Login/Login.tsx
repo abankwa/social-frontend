@@ -1,22 +1,39 @@
 import { useState, useContext } from 'react'
 import { signInWithEmailAndPassword } from '../../services/authServerAPI'
 import {useRouter} from 'next/router'
+import CreateAccountModal from './CreateAccountModal'
 
 
 export default function Login(props) {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [signInError, setSignInError] = useState("")
     const router = useRouter()
+    const [showModal, setShowModal] = useState(false)
 
-    
+
+    function handleOpenModal(e){
+        e.preventDefault();
+        setShowModal(true)
+    }
+
+    function handleCloseModal(e){
+        e.preventDefault();
+        setShowModal(false)
+    }
+
     async function handleLogin(e) {
-
         e.preventDefault()
         const res = await signInWithEmailAndPassword({ email, password })
         if(res.status === 'success')router.push('/home')
-
+        else setSignInError("an error occured")
     }
+
+    function handleCreateAccount(e){
+        e.preventDefault()
+    }
+    
 
     return (
         <>
@@ -45,12 +62,13 @@ export default function Login(props) {
                         <div className="separatorLine"></div>
                     </div>
                     <div>
-                        <button className="createAccount">Create New Account</button>
+                        <button className="createAccount" onClick={handleOpenModal}>Create New Account</button>
                     </div>
+                    <div className="signInError"><label>{signInError}</label></div>
                 </form>
             </div>
 
-
+            <CreateAccountModal handleCloseModal={handleCloseModal} showModal={showModal}/>
 
 
 
@@ -72,7 +90,7 @@ export default function Login(props) {
                 justify-content: center;
                 gap: 10px;
                 width: 350px;
-                height: 350px;
+                height: 370px;
                 border: 1px solid gray;
                 border-radius: 5px;
                 }
@@ -144,6 +162,11 @@ export default function Login(props) {
                 color: white;
                 padding: 0 16px;
                 
+                }
+
+                .signInError {
+                    color: red;
+
                 }
 
             `}

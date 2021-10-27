@@ -2,11 +2,6 @@ import React, { useEffect } from "react"
 import PostDetailMenu from '../Home/PostDetailMenu'
 
 export default function PostCard({ user, post }) {
-
-    // useEffect(() => {
-    //     document.addEventListener('click', (e) => { console.log(e.target) })
-    // },[])
-
     
     return (
         <>
@@ -20,7 +15,9 @@ export default function PostCard({ user, post }) {
                     <PostDetailMenu user={user} post={post}/>
                 </div>
                 <div className="message">{post.posttext}</div>
-                <div className="media">MEDIA</div>
+                <div className="media">
+                   {post.mediaurl && <img src={post.mediaurl}></img>}
+                </div>
                 <div className="reactionPreview">
                     <div className="reactions">👍 18</div>
                     <div className="comments">4 comments</div>
@@ -54,7 +51,6 @@ export default function PostCard({ user, post }) {
                     padding-right: 16px;
                     padding-top: 12px;
                     padding-bottom: 12px;
-                    border: solid green 1px;
                     position: relative;
                     
                 }
@@ -69,7 +65,6 @@ export default function PostCard({ user, post }) {
                 }
 
                 .detail {
-                    border: solid magenta 1px;
                     border-radius: 50%;
                     width: 40px;
                     height: 40px;    
@@ -78,7 +73,6 @@ export default function PostCard({ user, post }) {
                               
                 }
                 .detailMenu {
-                    border: 1px solid red;
                     position: absolute;
                     left: 490px;
                     top: -57px;
@@ -128,6 +122,10 @@ export default function PostCard({ user, post }) {
                     padding-top: 4px;
                     padding-bottom: 4px;
                     
+                }
+                .media img {
+                    width: 100px;
+                    height: 100px;
                 }
 
                 `}

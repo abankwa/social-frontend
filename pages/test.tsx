@@ -1,8 +1,21 @@
 
 import Link from 'next/link'
 import DropdownMenu from '../components/Home/DropdownMenu'
+import { useRef,useState } from 'react'
+import uploadImage from '../services/awsImageUpload'
 
 export default function Test() {
+
+    const fileRef = useRef(null)
+    const [state, setState] = useState()
+
+    async function handleFileUpload(e){
+        e.preventDefault()
+       // console.log(fileRef.current.files[0])
+       const mediaURL = await uploadImage(fileRef.current.files[0])
+       console.log(fileRef.current.files[0])
+        setState(mediaURL)
+    }
     return (
         <>
 
@@ -53,6 +66,22 @@ export default function Test() {
                 </div>
             </div>
             <DropdownMenu />
+            <div className="modalContainer">
+                <div className="modal">
+                    inside modal
+                </div>
+            </div>
+            <div className="flexTest">
+                <div className="flexItem">testing</div>
+                <div className="flexItem">another test longer</div>
+            </div>
+
+            <div>
+                <input type="file" ref={fileRef}></input>
+                <button onClick={handleFileUpload}>upload file</button>
+                <img className="image" src={state}></img>
+            </div>
+            
             <div className="footer">
 
             </div>
@@ -172,7 +201,47 @@ export default function Test() {
                         transition: all 0.3s ease;
                         
                     }
+
+                    .modalContainer {
+                        position: fixed;
+                        width: 100%;
+                        height: 100%;
+                        top: 0px;
+                        left: 0px;
+                        background: rgba(0, 0, 0, 0.6);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;  
+                        visibility: hidden;
+                        
+                    }
+
+                    .modal {
+                        width: 300px;
+                        height: 300px;
+                        background: yellow;
+                        opacity: 1;
+                        
+                    }
                     
+                    .flexTest {
+                        width: 300px;
+                        display: flex;
+                        
+                        border: solid magenta 1px;
+                    }
+
+                    .flexItem {
+                        border: 1px solid lightgray;
+                        flex-grow: 1;
+                        flex-basis: 0;
+                        
+                    }
+
+                    .image {
+                        width: 60px;
+                        height: 60px;
+                    }
 
                 `}
             </style>

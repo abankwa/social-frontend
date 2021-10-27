@@ -92,7 +92,6 @@ Posts
 
 TODO features
 -------------
-- modal signup
 - active link for selected dashboard
 - drop down nav for chat, notif, user
 - protecting routes that do database query; any action generating db lookup must be protected
@@ -100,6 +99,21 @@ TODO features
   do both auth checks and db dip in the backend.
 -showing posts from friends and news on user's feed
 -highlighting active nav page button based on current url, not on click.
+
+
+
+
+Image Upload
+-----------
+-all client interactions with the server are authenticated
+ 
+- aws flow:
+	upload:  server gets signed url from s3, client uploads directly to s3 with signed url
+	download:client download directly from S3 using url
+	delete:	 client talks to server, server deletes from S3 using SDK 
+		- use access keys for an IAM users with appropriate object permisions.
+		- attach bucket policies for object access	
+		- enable cors
 
 
 Issue list

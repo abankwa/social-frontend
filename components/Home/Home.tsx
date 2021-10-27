@@ -23,7 +23,7 @@ export default function Home({data}) {
     const router = useRouter()
     
 
-    if (isPostLoading) return <div>loading posts ...</div>
+    //if (isPostLoading) return <div>loading posts ...</div>
     if (isPostError) return <div>loading error</div>
 
     
@@ -34,13 +34,17 @@ export default function Home({data}) {
         if (res.status === 'success') router.push('/')
     }
 
-
-
-    const postList = postData.data.map(post => (
-        <div key={post.postid} id={post.postid}>
-            <PostCard user={data} post={post} />
-        </div>
-    ))
+    let postList;
+    if(!isPostLoading && postData.status === "success"){
+         postList = postData.data.map(post => (
+            <div key={post.postid} id={post.postid}>
+                <PostCard user={data} post={post} />
+            </div>
+        ))
+    } else {
+        console.log(JSON.stringify(postData))
+        router.push('/')
+    }
     // if (isLoading) return (<div>Loading ..</div>)
     // if (isError) return (<div>something went wrong ...</div>)
 
@@ -58,6 +62,7 @@ export default function Home({data}) {
                     <CreatePost data={data} />
                 </div>
                 <div>
+                    {isPostLoading && <div>loading ..</div>}
                     {postList}
                 </div>
             </div>

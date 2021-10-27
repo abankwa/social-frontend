@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Login from '../components/Home/Login'
+import Login from '../components/Login/Login'
 import Home from '../components/Home/Home'
 import Test from '../components/Test'
 import { SessionContext } from '../context/SessionContext'
@@ -36,9 +36,8 @@ export default function App() {
 
 
 
-      <style jsx>{`
-        
-        
+
+      <style jsx>{`     
 
       `}
       </style>

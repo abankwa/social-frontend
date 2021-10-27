@@ -8,6 +8,7 @@ export default function DropdownMenu({user,post}) {
     const [isDropdownActive, setIsDropdownActive] = useState(false)
     const toggleDropdown = () => { setIsDropdownActive(!isDropdownActive) }
 
+    
     useEffect(() => {
         const handleWindowClick = (e) => {
             console.log(e.target)
@@ -24,8 +25,8 @@ export default function DropdownMenu({user,post}) {
         return () => {window.removeEventListener('click', handleWindowClick)}
     },[isDropdownActive])
 
+    
     function handleDeletePost(){
-        console.log(JSON.stringify(post))
         useDeletePost(post)
         mutate(`http://localhost:4000/api/user/${user.data.userId}/posts`)
     }
@@ -91,7 +92,6 @@ export default function DropdownMenu({user,post}) {
                     justify-content: center;
                     align-items: center;
                     vertical-align: middle;
-                    border: solid magenta 1px;
                     border-radius: 50%;
                     width: 40px;
                     height: 40px;    
