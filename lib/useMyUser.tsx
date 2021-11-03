@@ -17,25 +17,6 @@ export default function useMyUser() {
                 .then(data => { setData(data); setIsLoading(false); return })
                 .catch(err => { setIsError(true); setError(error); return })
         }, [])
-
-        
-    
-        // fetch("http://localhost:4000/auth/token/verify", {
-        //     method: 'GET',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     credentials: 'include'  //send httponly cookie
-        // }).then(raw => raw.json())
-        //     .then(res => { data = res; isLoading = false; return })
-        //     .catch(err => { isError = true; error = err; return })
-
-
-        // fetch("http://localhost:4000/auth/token/verify", {
-        //         method: 'GET',
-        //         headers: { 'Content-Type': 'application/json' },
-        //         credentials: 'include'  //send httponly cookie
-        //     }).then(raw => raw.json())
-        //         .then(data => { setData(data); console.log('in effect');setIsLoading(false); return })
-        //         .catch(err => { setIsError(true); setError(error);})
     
         return { data, isError, isLoading };
 }

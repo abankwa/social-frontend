@@ -3,6 +3,7 @@ import Link from 'next/link'
 import DropdownMenu from '../components/Home/DropdownMenu'
 import { useRef,useState } from 'react'
 import uploadImage from '../services/awsImageUpload'
+import SearchBar from '../components/Home/SearchBar'
 
 export default function Test() {
 
@@ -82,6 +83,7 @@ export default function Test() {
                 <img className="image" src={state}></img>
             </div>
             
+            <SearchBar/>
             <div className="footer">
 
             </div>
@@ -241,6 +243,10 @@ export default function Test() {
                     .image {
                         width: 60px;
                         height: 60px;
+                    }
+
+                    .footer{
+                        height: 200px;
                     }
 
                 `}

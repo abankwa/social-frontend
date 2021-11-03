@@ -5,15 +5,19 @@ import {  IoNotificationsCircleOutline } from 'react-icons/io5'
 import { BsFillChatSquareTextFill } from 'react-icons/bs'
 import { FaUserCircle } from 'react-icons/fa'
 import Link from 'next/link'
+import SearchBar from './Home/SearchBar'
 
 export default function AppNav(){
 
     return (
         <>
             <div className="appHeader">
-                <ul className="leftHeader">
-                    <li><a href="#"><FontAwesomeIcon icon={faCoffee} size="2x" color="blue"/></a></li>
-                </ul>
+                <div className="leftHeader">
+                    
+                    <div className="searchBar">
+                        <SearchBar />
+                    </div>
+                </div>
                 <ul className="middleHeader">
                     <li><Link href="/home"><a ><FontAwesomeIcon icon={faHouseUser} size="2x"/></a></Link></li>
                     <li><Link href="/video"><a><FontAwesomeIcon icon={faVideo} size="2x"/></a></Link></li>
@@ -45,7 +49,7 @@ export default function AppNav(){
                     background-color: white;
                     }
 
-                    .leftHeader, .rightHeader, .middleHeader {
+                     .rightHeader, .middleHeader {
                     
                     list-style-type: none;
                     margin: 0;
@@ -56,9 +60,20 @@ export default function AppNav(){
                     .leftHeader {
                     display: flex;
                     align-items: center;
-                    justify-content: space-between;
-                    width: 150px;
+                    width: 250px;
+                    height: 50px;
                     border: solid green 1px;
+                    }
+
+                    .logo {
+                        border: solid gray 1px;
+                        border-radius: 50%;
+                        height: 40px;
+                        width: 40px;
+                        display: inline-block;
+                    }
+                    .searchBar {
+                        display: inline-block;
                     }
 
                     .middleHeader {

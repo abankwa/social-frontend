@@ -14,14 +14,15 @@ export default function DropdownMenu({user,post}) {
             console.log(e.target)
             //hide dropdown after we click outside or make make a selection
             if(dropdownRef.current !== null && (!dropdownRef.current.contains(e.target) || dropdownRef.current.contains(e.target)) ) {
-                setIsDropdownActive(!isDropdownActive)
+                setIsDropdownActive(false)
             }
         }
 
-        //when dropdown is open, start listening for clicks on the page
+        //when dropdown opens/mounts, start listening for clicks on the page and call
+        //handleWindowClick.
         if(isDropdownActive) window.addEventListener('click',handleWindowClick)
 
-        //remove event listeners when dropdown is closed
+        //remove event listeners when dropdown is closed/unmounts
         return () => {window.removeEventListener('click', handleWindowClick)}
     },[isDropdownActive])
 

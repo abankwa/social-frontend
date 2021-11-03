@@ -7,11 +7,11 @@ import useUser from '../../lib/useUser'
 import NoLayout from '../../layout/NoLayout'
 import useUserQuery from '../../lib/useUserQuery'
 import useMyUser from '../../lib/useMyUser'
-import { useQuery, useQueryClient } from 'react-query'
 
 
 export default function HomePage() {
 
+ 
   const router = useRouter()
 
   //const { data, isLoading, isError } = useUser()

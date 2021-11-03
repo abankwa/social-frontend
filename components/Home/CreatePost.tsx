@@ -1,7 +1,7 @@
 import useSWR, { useSWRConfig } from 'swr'
 import useAddPost from '../../lib/useAddPost'
-import { useRef } from 'react'
-import {uploadImage} from '../../services/awsImageUpload'
+import { useRef, useState } from 'react'
+import { uploadImage } from '../../services/awsImageUpload'
 
 
 export default function CreatePost({ data }) {
@@ -10,6 +10,8 @@ export default function CreatePost({ data }) {
     const refPostText = useRef()
     const mediaRef = useRef()
     const { firstName, lastName, email } = data.data;
+    const [iconClass, setIconClass] = useState("noImage")
+
 
     async function handlePost(e) {
         e.preventDefault()
@@ -17,21 +19,27 @@ export default function CreatePost({ data }) {
         const mediaURL = await uploadImage(mediaRef.current.files[0])
 
         //TODO: input validation. verify non-null before committing
-        if(!refPostText.current.value && !mediaURL) return;
+        if (!refPostText.current.value && !mediaURL) return;
 
         const post = {
             personId: data.data.userId,
             postText: refPostText.current.value,
             mediaURL: mediaURL
         }
-       
+
         useAddPost(post)
         mutate(`http://localhost:4000/api/user/${data.data.userId}/posts`)
         refPostText.current.value = "";
     }
 
-    function handleImageUpload(e){
+    function handleImageUpload(e) {
 
+    }
+
+    function handleFileChange(e) {
+        console.log(e.target.value)
+        if (e.target.value) setIconClass("yesImage")
+        else setIconClass("noImage")
     }
 
 
@@ -40,15 +48,16 @@ export default function CreatePost({ data }) {
             <div className="container">
                 <div className="createPost">
                     <div className="txtPost">
-                        <input type="textarea" ref={refPostText} className="postText" placeholder={`what's on your mind? ${firstName}..`}></input>
+                        <div className={`imageIcon ${iconClass}`}></div>
+                        <input type="textarea" ref={refPostText} className="postInput" placeholder={`what's on your mind? ${firstName}..`}></input>
                     </div>
                     <div className="separator"></div>
                     <div className="bottonsContainer">
-                        <div className="btnImage items" onClick={handleImageUpload} >image</div>
+                        <label htmlFor="fileUpload" className="btnImage items"> image</label>
                         <div className="btnPost items" onClick={handlePost}>post</div>
                     </div>
                 </div>
-                <input type="file" ref={mediaRef}></input>
+                <input type="file" ref={mediaRef} id="fileUpload" onChange={handleFileChange} hidden />
             </div>
 
 
@@ -81,11 +90,12 @@ export default function CreatePost({ data }) {
                 }
 
                 
-                .postText{
+                .postInput{
                     width: 100%;
                     padding: 10px;
                     border: 1px solid white;
                     border-radius: 10px;
+                    flex-basis: auto;
                 }
 
                 .bottonsContainer {
@@ -119,11 +129,23 @@ export default function CreatePost({ data }) {
                 .txtPost {
                     display: flex;
                     justify-content: center;
-                    width: 350px;
+                    align-items: center;
+                    width: 400px;
+    
                 }
                 .separator {
                     border-bottom: lightgray 1px solid;
                     width: 90%;
+                }
+                .imageIcon {
+                    height: 35px;
+                    width: 35px;
+                }
+                .noImage {
+                    background: white;
+                }
+                .yesImage {
+                    background: green;
                 }
                 
                 `}</style>

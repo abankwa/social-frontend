@@ -10,6 +10,10 @@ Database
 2. friends table
 	- a junction table for many-to-many friend relationship; same person table on both sides
 	- PK = user + friend ; composite key
+	TODO: 	figure out how to remove duplication. eg. userid: 1 --> friendid: 2 is the same as userid: 2 -> friendid: 1. ie. if user 1 is a friend of 2,
+		then it follows that 2 is a friend of one so no need to have 2 records. figure out how to prevent this duplication by postgres composite key feature,
+		or via the application by checking whether users are friends before enabling friend request button.
+
 
 3. post table
 	-
@@ -62,7 +66,9 @@ Flow:
   - create useUser hook for checking auth status of user (verify token)
   - each main page (not component) and protected routes  calls useUser at the top to verify login session, 
     and redirects to login page is user is not logged in. this takes care of direct access to pages eg. /home, /video etc
-  - all protected routes are also authenticated on the express server using a middleware
+  - all protected routes are also authenticated on the express server using a middleware. the middleware also extracts the usercontext from the token
+    and provides and add it to the res object. that way all apis know which user made the request for database lookups; no need to send user
+    from frontend.
 
 index Page:
   - same route ('/') used for Login and Home components
@@ -97,7 +103,7 @@ TODO features
 - protecting routes that do database query; any action generating db lookup must be protected
   OR all API calls must be authenticated. do auth checks in the backend; don't check auth, send response to frontend then go to db. instead
   do both auth checks and db dip in the backend.
--showing posts from friends and news on user's feed
+-algo showing posts from friends and news on user's feed
 -highlighting active nav page button based on current url, not on click.
 
 
@@ -109,11 +115,95 @@ Image Upload
  
 - aws flow:
 	upload:  server gets signed url from s3, client uploads directly to s3 with signed url
-	download:client download directly from S3 using url
+	download:client download directly from S3 using url. ie. src in <img>
 	delete:	 client talks to server, server deletes from S3 using SDK 
 		- use access keys for an IAM users with appropriate object permisions.
 		- attach bucket policies for object access	
 		- enable cors
+
+
+
+Profile Page
+------------
+a user can have 3 kinds of profile view. use different api endpoints for the different views. return specific data from Db based on the view requested
+1. owner view
+	- profile as seen by profile owner
+	- shows all information about owner; age, photos etc.
+2. friends view
+	- profile as seen by a friend
+	- shows limited info. and information that owner has marked as 'friend viewable'
+	- people search result can be pointed here if they're your friend
+3. public view
+	- profile as seen by public
+	- shows limited info. and info owner has marked as 'public'
+	- people search result can be pointed here if they're not your friend.
+
+
+
+Search
+-------
+1. Live search dropdown
+	- lists people. 
+	- first search user's friend list, then public non-friends
+	- show limited results for live search
+
+2. Full search page
+	- after hitting enter or selecting "search for x" button from live search
+	- has categories left nav, and right result pane
+
+3. Search Result
+	- show friends first, then other people that, then post, etc
+	- if result is your friend,  go to profile page -> posts(friend view)
+	- if it's not your friend, go full search result page listing all search results by categories; 
+	  full search page has category left nav
+
+
+Friends
+-------
+1. on clicking on a friend in search result from live search, or full page search
+	- call the /[friendId]/index.tsx page with the friendId from the search result. 
+
+2.  /[friendId]/index.tsx page has the layout for the friend profile, with a nav bar which has buttons for each of the sub profile components [Posts, About, Video, Photos].
+    onclicking of the nav items, we use ref boolean and a forceRender() function to render the selected component passing the friendId received from the search result as prop.
+    the Posts sub profile is the landing component for index page - it's ref boolean is true from the start.
+    
+3. The index page does a fetch on friendId to display the profile image, name and background image; also redirects to 404 if person does not exist. This could happen is
+   a user directly typed a bogus id in the URL instead of coming from the search result
+
+4. Each of the sub profile components also do appropriate data fetches to display their respective contents. they also verify the friendid 404 redirect on failure.
+   
+
+5. backend API
+	a) with friendId, first search friend table. 
+		- if friend server includes isFriend:true. client uses this to deactivate friend request button
+		- pass friend data to FriendProfileLayout as prop to display image.
+	- b) if not friend then search person table for a person with that id. server includes isFriend:false. client uses this to activate friend request button
+		- activate friend request button
+		- pass friend data to FriendProfileLayout via props to display image.
+
+
+
+	
+	
+TODO: Friend Suggestions
+------------------
+- convert the friends table into a graph. eg.
+	1. take user1 (node) then determine all his friends(children)
+	2. then for each of the children, determine all their friends etc.
+- make friend suggestions based on second level BFS; ie. friends of friends
+- make "people you may know" suggestions based on > second level BFS
+- get library to visualize friend relationships
+- consider using graph db for friends
+- error messages: auth errors, lookup errors, etc what error status codes to send, what error messages to send,
+ what error pages to show, and which error require redirect to login/home etc. does fetch trycatch see status eg. 500 as caught error? looks like.
+	- anywhere we fail because of token verification, we should redirect to login page
+
+
+
+question
+--------
+- in friend table, the entry userid->friendid is the same in the reverse hence no need to double entry. if you're my friend, then i'm you're my friend
+  how can this be enforced in postgres to allow creation of only on entry.
 
 
 Issue list
