@@ -49,7 +49,7 @@ export default function CreatePost({ data }) {
                 <div className="createPost">
                     <div className="txtPost">
                         <div className={`imageIcon ${iconClass}`}></div>
-                        <input type="textarea" ref={refPostText} className="postInput" placeholder={`what's on your mind? ${firstName}..`}></input>
+                        <input type="textarea" ref={refPostText} className="postInput" placeholder={`what's on your mind? ${firstName} ${lastName}..`}></input>
                     </div>
                     <div className="separator"></div>
                     <div className="bottonsContainer">

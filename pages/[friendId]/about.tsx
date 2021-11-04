@@ -2,11 +2,9 @@ import SiteLayout from "../../layout/SiteLayout"
 import { useRouter } from 'next/router'
 import useMyUser from '../../lib/useMyUser'
 import FriendProfileLayout from "../../layout/FriendProfileLayout"
-import { useEffect } from "react"
 import useFetch from '../../lib/useFetch'
 import { useSelector } from 'react-redux'
-import DefaultErrorPage from 'next/error'
-import Head from 'next/head'
+
 
 
 export default function FriendAbout({ query }) {
@@ -27,7 +25,7 @@ export default function FriendAbout({ query }) {
     console.log(friendId)
 
 
-    const { fetchData, isFetchError, isFetchLoading } = useFetch(`http://localhost:4000/api/friend/${friendId}`, 'GET', query)
+    const { fetchData, isFetchError, isFetchLoading } = useFetch(`http://localhost:4000/api/friend/${friendId}`, 'GET', query,[])
     if (fetchData) console.log(fetchData)
 
     //check whether data is non-empty else redirect to 404 page. this could happen

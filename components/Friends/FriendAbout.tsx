@@ -18,7 +18,7 @@ export default function FriendAbout({ friendId }) {
     console.log(friendId)
 
 
-    const { fetchData, isFetchError, isFetchLoading } = useFetch(`http://localhost:4000/api/friend/${friendId}`, 'GET', {friendId})
+    const { fetchData, isFetchError, isFetchLoading } = useFetch(`http://localhost:4000/api/friend/${friendId}`, 'GET', {friendId},[])
     if (fetchData) console.log(fetchData)
 
     //check whether data is non-empty else redirect to 404 page. this could happen

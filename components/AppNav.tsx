@@ -41,9 +41,8 @@ export default function AppNav(){
                     display: flex;
                     justify-content: space-between;
                     width: 100%;
-                    /*border-bottom: 1px solid gray;*/
                     align-items: center;
-                    height: 60px;
+                    height: 65px;
                     position: sticky;
                     top: 0px;
                     background-color: white;

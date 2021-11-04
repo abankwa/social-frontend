@@ -8,6 +8,7 @@ import FriendPhotos from "../../components/Friends/FriendPhotos"
 import FriendVideos from "../../components/Friends/FriendVideos"
 import useFetch from "../../lib/useFetch"
 import myFetch from "../../lib/myFetch"
+import FriendStatus from "../../components/Friends/FriendStatus"
 
 
 
@@ -21,7 +22,6 @@ export default function FriendProfilePage() {
     let photoRef = useRef(false)
     let videoRef = useRef(false)
 
-    //let isFriend = useRef(false)
 
     const router = useRouter()
 
@@ -40,12 +40,11 @@ export default function FriendProfilePage() {
     // after Automatic Static Optimization. friedId will be undefined in the first render
     const friendId = router.query.friendId
 
-    console.log(friendId)
  
 
     //Call backend API to get friend data and verify if friend is valid
     //also populate the profile and background images 
-    const { fetchData, isFetchError, isFetchLoading } = useFetch(`${friendId ? `http://localhost:4000/api/friend/${friendId}`: 'null'}`, 'GET', { friendId,isUpdated })
+    const { fetchData, isFetchError, isFetchLoading } = useFetch(`${friendId ? `http://localhost:4000/api/friend/${friendId}`: 'null'}`, 'GET', null, [friendId,isUpdated ])
    
 
     //GATEKEEPER pattern
@@ -71,12 +70,11 @@ export default function FriendProfilePage() {
         
     }
 
-    console.log(fetchData)
+    //console.log(fetchData)
     const [firstName, lastName] = [fetchData.data[0].firstname, fetchData.data[0].lastname]
-    let isFriend = fetchData.data[1].isFriend;
     //isFriend.current = fetchData.data[1].isFriend;
     
-    console.log(isFriend)
+    //console.log(isFriend)
 
     function handlePostClick(e) {
         e.preventDefault()
@@ -135,13 +133,6 @@ export default function FriendProfilePage() {
         // do nothing yet
     }
 
-    async function handleAddFriend(e){
-        const {data, loading, error} = await myFetch(`http://localhost:4000/api/friend/${friendId}`,'POST')
-        data?.then(() => {
-            setIsUpdated(!isUpdated)
-            ForceRender()
-        })
-    }
 
 
     return (
@@ -168,7 +159,7 @@ export default function FriendProfilePage() {
                                 <div className="leftItem" onClick={handleMoreClick}>More</div>
                             </div>
                             <div className="rightNav">
-                                <div className={isFriend ? 'friends': 'notFriends'} onClick={handleAddFriend}>{isFriend ? 'Requested': '+ Add Friend'}</div>
+                                <FriendStatus friendId={friendId}/> 
                                 <div className="message">Message</div>
                                 <div className="detail">...</div>
                             </div>

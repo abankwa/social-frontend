@@ -1,17 +1,41 @@
 
 import React from 'react'
 import Link from 'next/link'
+import {useSelector,useDispatch} from 'react-redux'
 
 export default function HomeLeftNav(){
+
+    const {value} = useSelector(state => state.userContext)
+    
+
+    const firstName = value.data.firstName;
+    const lastName = value.data.lastName;
+
+
+
     return (
         <>
             <div className="homeLeftNav">
-                <div><h2>home left nav</h2> </div>
-                <div><Link href="/home/profile">Profile</Link></div>
-                <div><Link href="/home/friends">Friends</Link></div>
-                <div><Link href="/home/friend-requests">Friend Requests</Link></div>
-                <div><Link href="/home/messenger">Messenger</Link></div>
-                <div>item2</div>
+                <Link href="/home/profile">
+                <div className="item">
+                    <div className="icon"></div><div >{`${firstName} ${lastName}`}</div>
+                </div>
+                </Link>
+                <Link href="/friends">
+                <div className="item">
+                    <div className="icon"></div><div >Friends</div>
+                </div>
+                </Link>
+                <Link href="/home/messenger">
+                <div className="item">
+                    <div className="icon"></div><div >Messenger</div>
+                </div>
+                </Link>
+                <Link href="/home/market-place">
+                <div className="item">
+                    <div className="icon"></div><div >Marketplace</div>
+                </div>
+                </Link>
             </div>
 
 
@@ -23,9 +47,33 @@ export default function HomeLeftNav(){
                 
                 .homeLeftNav {
                     display: flex;
-                    flex-direction: column;
-                    border: 1px solid gray;  
+                    flex-direction: column; 
+                    margin-left: 20px;
+                    margin-top: 10px;
                  }
+
+                 .icon {
+                     height: 40px;
+                     width: 40px;
+                     border-radius: 50%;
+                     background: lightgray;
+                     margin-right: 10px;
+                 }
+                 .item {
+                     display: flex;
+                     justify-content: flex-start;
+                     align-items: center;
+                     border-radius: 5px;
+                     padding: 2px 0px;
+                     font-size: 15px;
+                    
+                     
+                 }
+                 .item:hover{
+                     background: lightgray;
+                     cursor: pointer;
+                 }
+                 
 
                 `}
             </style>

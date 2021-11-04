@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import friendIdReducer from '../store/friendSlice'
+import userContextReducer from '../store/userSlice'
 
 export default configureStore({
   reducer: {
-    friendId: friendIdReducer
+    userContext: userContextReducer
   }
 })

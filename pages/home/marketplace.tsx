@@ -5,7 +5,7 @@ import useMyUser from '../../lib/useMyUser'
 import HomeLayout from "../../layout/HomeLayout"
 
 
-export default function FriendRequestPage() {
+export default function Marketplace() {
 
     //Verify Login status
     //const { data, isLoading, isError } = useUser()
@@ -30,7 +30,7 @@ export default function FriendRequestPage() {
 }
 
 
-FriendRequestPage.getLayout = function getLayout(page) {
+Marketplace.getLayout = function getLayout(page) {
     return (
         <SiteLayout>
             <HomeLayout>

@@ -1,19 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react'
+
 import Home from '../../components/Home/Home'
 import SiteLayout from '../../layout/SiteLayout'
 import HomeLayout from '../../layout/HomeLayout'
 import { useRouter } from 'next/router'
-import useUser from '../../lib/useUser'
-import NoLayout from '../../layout/NoLayout'
-import useUserQuery from '../../lib/useUserQuery'
 import useMyUser from '../../lib/useMyUser'
+import {useSelector,useDispatch} from 'react-redux'
+import { setUserContext } from '../../lib/store/userSlice'
 
 
 export default function HomePage() {
 
  
   const router = useRouter()
+  const user = useSelector(state => state.userContext)
+  const dispatch = useDispatch()
+  
 
+  
   //const { data, isLoading, isError } = useUser()
   //const {data, isLoading, isError } = useUserQuery()
   const { data, isLoading, isError } = useMyUser()
@@ -23,6 +26,10 @@ export default function HomePage() {
 
   //login session not found, redirect to login page
   if (data.status === 'error') router.push('/')
+
+  dispatch(setUserContext(data))
+
+  console.log(data)
 
   return (
 
