@@ -23,7 +23,7 @@ export default function HomeRightNav(){
                 .homeRightNav {
                     display: flex;
                     flex-direction: column;
-                    border: 1px solid gray;  
+                    
                  }
 
                 `}

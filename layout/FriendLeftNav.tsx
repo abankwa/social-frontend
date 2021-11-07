@@ -1,15 +1,9 @@
 
 import React, { Children } from 'react'
 import Link from 'next/link'
-import { useSelector, useDispatch } from 'react-redux'
 
 export default function FriendLeftNav() {
 
-    const { value } = useSelector(state => state.userContext)
-
-
-    const firstName = value.data.firstName;
-    const lastName = value.data.lastName;
 
 
 
@@ -97,8 +91,11 @@ export default function FriendLeftNav() {
                 .container {
                     display: flex;
                     flex-direction: column;
-                    margin-left: 15px;
-
+                    background: white;
+                    height: 100%;
+                    padding-left: 15px;
+                    border-right: 1px lightgray solid;
+                                                           
                 }
 
                 .menu {

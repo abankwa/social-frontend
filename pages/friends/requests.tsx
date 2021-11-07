@@ -8,47 +8,35 @@ import FriendsHome from '../../components/Friends/FriendsHome'
 
 
 
-export default function FriendHomePage() {
+export default function FriendRequests() {
 
 
   const router = useRouter()
-
-
+  
+  
   //AUTHENTICATE USER
   const { data, isLoading, isError } = useMyUser()
-
+ 
   if (isLoading) return <div>loading from index...</div>;
   if (isError) return <div>failed to load</div>;
 
   //login session not found, redirect to login page
   if (data.status === 'error') router.replace('/')
 
-
-
+  
+  
+  
   return (
 
     <>
-      <div className="container">
-        <FriendsHome />
-      </div>
-
-
-      <style jsx>{`
-          .container {
-            
-        
-          }
-        
-        
-        `}</style>
-
+      <div>Friend Requests</div>
     </>
   )
 
 }
 
 
-FriendHomePage.getLayout = function getLayout(page) {
+FriendRequests.getLayout = function getLayout(page) {
 
   return (
     <FriendLayout>
@@ -56,10 +44,3 @@ FriendHomePage.getLayout = function getLayout(page) {
     </FriendLayout>
   )
 }
-
-
-// //NOTE: getServerProps will not send along cookies in fetch requests
-// export async function getServerSideProps() {
-//   const ssrData = await verifyAccessTokenFromCookie()
-//   return { props: { ssrData } }
-// }

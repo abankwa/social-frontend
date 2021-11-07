@@ -105,7 +105,14 @@ TODO features
   do both auth checks and db dip in the backend.
 -algo showing posts from friends and news on user's feed
 -highlighting active nav page button based on current url, not on click.
+- error messages: auth errors, lookup errors, etc what error status codes to send, what error messages to send,
+ what error pages to show, and which error require redirect to login/home etc. does fetch trycatch see status eg. 500 as caught error? looks like.
+	- anywhere we fail because of token verification, we should redirect to login page
 
+-creating new column of unique names for friends. so those can be used in place of numerical ids and friends profile page can have eg. /xx.com/kevin.johnson1.
+	-in SQL while creating new user, check if their name exists. if not use that or if exists make a unique one eg. kevin.johnson4
+
+-if you tried going to page1 and you got redirected to the login page, after logging in send the person back to page1
 
 
 
@@ -140,8 +147,8 @@ a user can have 3 kinds of profile view. use different api endpoints for the dif
 
 
 
-Search
--------
+General search Search
+----------------------
 1. Live search dropdown
 	- lists people. 
 	- first search user's friend list, then public non-friends
@@ -158,8 +165,8 @@ Search
 	  full search page has category left nav
 
 
-Friends
--------
+Friends profile page from search
+---------------------------------
 1. on clicking on a friend in search result from live search, or full page search
 	- call the /[friendId]/index.tsx page with the friendId from the search result. 
 
@@ -182,6 +189,23 @@ Friends
 		- pass friend data to FriendProfileLayout via props to display image.
 
 
+Friend profile page from friendslist
+------------------------------------
+-the url for a) friend profile view coming from search result, and b)friend profile view coming from All Friends list is the same.
+	- a) has a full profile page with n
+o nav bars
+	- b) has the All friends list left nav, and the same profile page from (a) on the right. the profile page get rearranged by media queries just like if the window
+	     size was decreased.
+-figure out a way to tell the friend profile page whether you're visiting from search list, or from All Friends list (eg. pass a parameter).
+	-if coming from search list, then load page with no All Friends left nav bar layout.
+	-if coming from All friend list, then load page with All Friends left nav bar as layout.
+	option 1: get previous url - Not supported for security reasons.
+	option 2: pass parameters to the new page
+	option 2: use global store - while on the All friends page, set value in store.
+		profile page reads store on loading to determine  whether to use leftNav layout or not, then unset when unmounting page using useEffect. 
+	option 4: us an 'as' url
+
+
 
 	
 	
@@ -194,9 +218,6 @@ TODO: Friend Suggestions
 - make "people you may know" suggestions based on > second level BFS
 - get library to visualize friend relationships
 - consider using graph db for friends
-- error messages: auth errors, lookup errors, etc what error status codes to send, what error messages to send,
- what error pages to show, and which error require redirect to login/home etc. does fetch trycatch see status eg. 500 as caught error? looks like.
-	- anywhere we fail because of token verification, we should redirect to login page
 
 
 

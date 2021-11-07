@@ -12,8 +12,8 @@ export default function HomePage() {
 
  
   const router = useRouter()
-  const user = useSelector(state => state.userContext)
-  const dispatch = useDispatch()
+  // const user = useSelector(state => state.userContext)
+  // const dispatch = useDispatch()
   
 
   
@@ -27,9 +27,7 @@ export default function HomePage() {
   //login session not found, redirect to login page
   if (data.status === 'error') router.push('/')
 
-  dispatch(setUserContext(data))
-
-  console.log(data)
+  // dispatch(setUserContext(data))
 
   return (
 
@@ -44,9 +42,7 @@ export default function HomePage() {
 
       <style jsx>{`
         
-        body {
-          background-color: green;
-        }
+        
         
 
       `}

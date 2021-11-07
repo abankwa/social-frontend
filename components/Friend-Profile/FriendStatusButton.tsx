@@ -2,7 +2,7 @@ import { useState } from "react"
 import myFetch from "../../lib/myFetch"
 import useFetch from "../../lib/useFetch"
 
-export default function FriendStatus({ friendId }) {
+export default function FriendStatusButton({ friendId }) {
 
     //used to force rerendering to update update button style
     const [updateStatus, setUpdateStatus] = useState(false)
@@ -16,7 +16,6 @@ export default function FriendStatus({ friendId }) {
     console.log(fetchData.data)
 
     async function handleAddFriend(e){
-        e.preventDefault()
 
         e.preventDefault()
         const {data, loading, error} = await myFetch(`http://localhost:4000/api/request-friend/${friendId}`,'POST')

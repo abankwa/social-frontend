@@ -15,11 +15,7 @@ export default function SearchResultItem({ item }) {
     function handleItemClick(e) {
         e.preventDefault()
         dispatch(setFriendId(item.userid))
-        //router.push(`/${item.userid}/posts`)
         router.push(`/${item.userid}`)
-        //window.location.href = `/${item.userid}`
-        localStorage.setItem('LAST_FRIENDID_SEARCHED',item.userid)
-
     }
     //TODO: also handle accessibilty where item is selected via keyboard
     //ie. onKeypress etc

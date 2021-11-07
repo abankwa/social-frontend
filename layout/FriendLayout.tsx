@@ -1,34 +1,26 @@
 
 import React from 'react'
 import Link from 'next/link'
-import {useSelector,useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import AppNav from '../components/AppNav';
 import FriendLeftNav from './FriendLeftNav';
 
-export default function FriendLayout({children}){
-
-    const {value} = useSelector(state => state.userContext)
-    
-    
-    const firstName = value.data.firstName;
-    const lastName = value.data.lastName;
+export default function FriendLayout({ children }) {
 
 
 
     return (
         <>
+            <AppNav />
             <div className="container">
-                <AppNav />
-                <div className="contentArea">
-                    <div className="leftNav">
-                        <FriendLeftNav />
-                    </div>
-                    <div className="rightContent">
-                        {children}
-                    </div>
+                <div className="leftNav">
+                    <FriendLeftNav />
                 </div>
- 
+                <div className="rightContent">
+                    {children}
+                </div>
             </div>
+
 
 
 
@@ -36,17 +28,25 @@ export default function FriendLayout({children}){
             {/* STYLE */}
 
             <style jsx>{`
-                .contentArea {
+
+                .container {
                     display: flex;
                     flex-direction: row;
+                    width: 100%;
+                    height: calc(100vh - 65px); /* viewport minus height of navbar*/
+                    overflow: hidden;
                 }
 
                 .leftNav {
-                    width: 300px;
+                    width: 400px;
+                    height: 100%;
+                    overflow: scroll;
                     
                 }
                 .rightContent {
-                    flex-grow: 1
+                    width: 100%;
+                    height: 100%;  
+                    overflow: scroll;
 
                 }
 

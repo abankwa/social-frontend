@@ -5,7 +5,7 @@ import { RenderCounter, MyRef } from "../../lib/search";
 
 export default function SearchBar() {
 
-    
+
 
     const [isLoading, setIsLoading] = useState()
     const [isError, setIsError] = useState()
@@ -13,23 +13,23 @@ export default function SearchBar() {
     const [showPadding, setShowPadding] = useState(false)
     const [showSearchList, setShowSearchList] = useState(false)
     const inputRef = useRef("")
-   
+
     //when input box is focused, show both padding and search result list.
-    const handleFocus = () => {setShowPadding(true);setShowSearchList(true) }
-  
+    const handleFocus = () => { setShowPadding(true); setShowSearchList(true) }
+
     useEffect(() => {
 
         //whiles the searchlist and padding are showing, if we click anywhere 
         //other than the input box, hide the search result and padding.
-        function hideSearchResult(e){
-            if(inputRef.current !== e.target){
+        function hideSearchResult(e) {
+            if (inputRef.current !== e.target) {
                 setShowPadding(false)
-                setShowSearchList(false)   
+                setShowSearchList(false)
             }
         }
 
         //when padding is visible, start listening for clicks
-        if(showPadding) window.addEventListener('click', hideSearchResult)
+        if (showPadding) window.addEventListener('click', hideSearchResult)
     })
 
     async function handleLiveSearch(e) {
@@ -58,7 +58,7 @@ export default function SearchBar() {
 
     }
 
- 
+
 
     let searchList
     if (data && data.status === 'success') {
@@ -69,8 +69,8 @@ export default function SearchBar() {
 
     return (
         <>
-            <div className="searchContainer">
-                <div className={`content ${showPadding ? 'contentActive': ""}`}>
+            <div className="container">
+            <div className={`content ${showPadding ? 'contentActive' : ""}`}>
                     <div className="logo"></div>
                     <div className="txtDiv ">
                         <input type="text" ref={inputRef} placeholder="search" className={`txtSearch `} onChange={handleLiveSearch} onFocus={handleFocus}></input>
@@ -78,7 +78,7 @@ export default function SearchBar() {
                         {isLoading && <div>loading..</div>}
                         {showPadding && <div className="padding"></div>}
                     </div>
-                    
+
 
                 </div>
 
@@ -90,10 +90,12 @@ export default function SearchBar() {
 
             <style jsx>{`
             
-            .searchContainer {
+            .container {
                 
-                
+                width: 10px;
+                height: 10px;
                 position: relative;
+                border: green solid 1px;
             }
             .content {
                 margin-left: 10px;

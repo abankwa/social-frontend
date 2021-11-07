@@ -4,11 +4,13 @@ import DropdownMenu from '../components/Home/DropdownMenu'
 import { useRef,useState } from 'react'
 import uploadImage from '../services/awsImageUpload'
 import SearchBar from '../components/Home/SearchBar'
+import { useRouter } from 'next/router'
 
 export default function Test() {
 
     const fileRef = useRef(null)
     const [state, setState] = useState()
+    const router = useRouter()
 
     async function handleFileUpload(e){
         e.preventDefault()
@@ -16,6 +18,14 @@ export default function Test() {
        const mediaURL = await uploadImage(fileRef.current.files[0])
        console.log(fileRef.current.files[0])
         setState(mediaURL)
+    }
+
+    function handleClick(e){
+        e.preventDefault()
+        router.push({
+            pathname: '/test/[testid]',
+            query: { testid: 'yolo', x: 300},
+          })
     }
     return (
         <>
@@ -87,6 +97,7 @@ export default function Test() {
             <div className="footer">
 
             </div>
+            <button onClick={handleClick}>test route</button>
 
 
 

@@ -7,7 +7,7 @@ export default function HomeLayout({ children }) {
     return (
         <>
 
-            <div className="homeLayout">
+            <div className="container">
                 <div className="leftNav"><HomeLeftNav /></div>
                 <div className="mainNav">{children}</div>
                 <div className="rightNav"><HomeRightNav /></div>
@@ -19,28 +19,28 @@ export default function HomeLayout({ children }) {
             {/* STYLE */}
             <style jsx>{`
 
-                .homeLayout {
+                .container {
                     display: flex;
                     justify-content: space-between;
-                    height: calc(100vh - 60px);
-                    border: solid 1px gray;
+                    height: calc(100vh - 65px);
                     overflow: hidden;
 
                  }
 
                  .leftNav {
                      width: 250px;
+                     height: 100%;
                      overflow-y: scroll;
 
                  }
                  .rightNav {
                      width: 250px;
+                     height: 100%;
                      overflow-y: scroll;
                  }
 
                  .mainNav {
                      flex:1 ;
-                     border: solid 1px gray;
                      overflow-y: scroll;
                  }
 

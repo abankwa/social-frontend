@@ -1,14 +1,14 @@
 import SiteLayout from "../../layout/SiteLayout"
 import { useEffect, useRef, useState } from "react"
-import FriendPosts from '../../components/Friends/FriendPosts'
+import FriendPosts from '../../components/Friend-Profile/FriendPosts'
 import { useRouter } from "next/router"
-import FriendAbout from "../../components/Friends/FriendAbout"
-import FriendFriends from '../../components/Friends/FriendFriends'
-import FriendPhotos from "../../components/Friends/FriendPhotos"
-import FriendVideos from "../../components/Friends/FriendVideos"
+import FriendAbout from "../../components/Friend-Profile/FriendAbout"
+import FriendFriends from '../../components/Friend-Profile/FriendFriends'
+import FriendPhotos from "../../components/Friend-Profile/FriendPhotos"
+import FriendVideos from "../../components/Friend-Profile/FriendVideos"
 import useFetch from "../../lib/useFetch"
 import myFetch from "../../lib/myFetch"
-import FriendStatus from "../../components/Friends/FriendStatus"
+import FriendStatusButton from "../../components/Friend-Profile/FriendStatusButton"
 
 
 
@@ -159,7 +159,7 @@ export default function FriendProfilePage() {
                                 <div className="leftItem" onClick={handleMoreClick}>More</div>
                             </div>
                             <div className="rightNav">
-                                <FriendStatus friendId={friendId}/> 
+                                <FriendStatusButton friendId={friendId}/> 
                                 <div className="message">Message</div>
                                 <div className="detail">...</div>
                             </div>
