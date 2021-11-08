@@ -33,7 +33,7 @@ export default function HomeLeftNav(){
                     <div className="icon"></div><div >Messenger</div>
                 </div>
                 </Link>
-                <Link href="/home/market-place">
+                <Link href="/home/marketplace">
                 <div className="item">
                     <div className="icon"></div><div >Marketplace</div>
                 </div>

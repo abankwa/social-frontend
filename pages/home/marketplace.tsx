@@ -20,11 +20,10 @@ export default function Marketplace() {
     if (data.status === 'error') router.push('/')
 
     
-    const {email, firstName, lastName} = data.data
     
     return (
         <>
-            <h2>{`${firstName} 's friend requests`}</h2>
+            <h2>Market place</h2>
         </>
     )
 }

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setUserContext } from '../../lib/store/userSlice'
 import FriendLayout from '../../layout/FriendLayout'
 import FriendsHome from '../../components/Friends/FriendsHome'
-
+import SiteLayout from '../../layout/SiteLayout'
 
 
 export default function FriendHomePage() {
@@ -51,9 +51,11 @@ export default function FriendHomePage() {
 FriendHomePage.getLayout = function getLayout(page) {
 
   return (
-    <FriendLayout>
-      {page}
-    </FriendLayout>
+    <SiteLayout>
+      <FriendLayout>
+        {page}
+      </FriendLayout>
+    </SiteLayout>
   )
 }
 

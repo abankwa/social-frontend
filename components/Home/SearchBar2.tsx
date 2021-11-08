@@ -1,6 +1,8 @@
 import SearchResultItem from "./SearchResultItem"
 import { useState, useRef, useEffect } from "react";
 import { BsSearch } from 'react-icons/bs'
+import { useSelector, useDispatch } from 'react-redux'
+import { setGenContext } from '../../lib/store/genContextSlice'
 
 export default function SearchBar2() {
 
@@ -12,6 +14,11 @@ export default function SearchBar2() {
     const [isLoading, setIsLoading] = useState()
     const [isError, setIsError] = useState()
     const [data, setData] = useState()
+
+    useEffect(() => {
+        return () => {console.log('search bar unmounting')}
+    },[])
+
 
     //show the search box if we click the search button
     function handleSearchClick() {
@@ -26,7 +33,6 @@ export default function SearchBar2() {
             setVisibility("hideSearch")
             window.removeEventListener('click', handleWindowClick)
         }
-        console.log(e.target)
     }
 
 
@@ -38,7 +44,7 @@ export default function SearchBar2() {
             searchKey = searchKey.toLowerCase()
             try {
                 setIsLoading(true)
-                const raw = await fetch(`http://localhost:4000/api/live-search/${searchKey}`, {
+                const raw = await fetch(`http://localhost:4000/api/global-search/${searchKey}`, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
@@ -51,7 +57,7 @@ export default function SearchBar2() {
             } catch (error) {
                 setIsError(true)
                 setIsLoading(false)
-                console.log(error)
+
             }
         } else setData("") //clear search after deletion textbox entries
 
@@ -82,7 +88,7 @@ export default function SearchBar2() {
                     </div>
                 </div>
                 <div className="logo"></div>
-                <div className="searchIcon" >
+                <div className="searchIcon" onClick={handleSearchClick} >
                     <div onClick={handleSearchClick} ref={searchRef}><BsSearch size="22px" className="fa" onClick={handleSearchClick} /></div>
                 </div>
             </div>

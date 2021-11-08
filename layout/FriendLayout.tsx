@@ -11,7 +11,6 @@ export default function FriendLayout({ children }) {
 
     return (
         <>
-            <AppNav />
             <div className="container">
                 <div className="leftNav">
                     <FriendLeftNav />

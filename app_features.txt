@@ -113,7 +113,7 @@ TODO features
 	-in SQL while creating new user, check if their name exists. if not use that or if exists make a unique one eg. kevin.johnson4
 
 -if you tried going to page1 and you got redirected to the login page, after logging in send the person back to page1
-
+-the loading indication on fetch cause the screen to flash; either don't display anything or display a modal spinner which still show the current page.
 
 
 Image Upload
@@ -192,18 +192,14 @@ Friends profile page from search
 Friend profile page from friendslist
 ------------------------------------
 -the url for a) friend profile view coming from search result, and b)friend profile view coming from All Friends list is the same.
-	- a) has a full profile page with n
-o nav bars
-	- b) has the All friends list left nav, and the same profile page from (a) on the right. the profile page get rearranged by media queries just like if the window
-	     size was decreased.
+	a) has a full profile page with no left nav
+	b) has the All friends list left nav, and the same profile page from (a) on the right. the profile page get rearranged by media queries just like if the window
+	     size was resized..
 -figure out a way to tell the friend profile page whether you're visiting from search list, or from All Friends list (eg. pass a parameter).
 	-if coming from search list, then load page with no All Friends left nav bar layout.
 	-if coming from All friend list, then load page with All Friends left nav bar as layout.
-	option 1: get previous url - Not supported for security reasons.
-	option 2: pass parameters to the new page
-	option 2: use global store - while on the All friends page, set value in store.
-		profile page reads store on loading to determine  whether to use leftNav layout or not, then unset when unmounting page using useEffect. 
-	option 4: us an 'as' url
+	soln: use a localStorage key. at the friends list, set the key on clicking a card. at the friend profile page, check if the key is set. if set load the 
+	      profile page with left nav layout. if not load page with only site layout. unset the key when dismounting from friend profile in useEffect(,[]) return.
 
 
 

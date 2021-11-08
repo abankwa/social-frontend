@@ -13,7 +13,6 @@ export default function FriendStatusButton({ friendId }) {
     if(isFetchLoading) return null
     const friendRequestStatus = fetchData.data.friendRequestStatus
     const isFriend = fetchData.data.isFriend
-    console.log(fetchData.data)
 
     async function handleAddFriend(e){
 
@@ -29,8 +28,6 @@ export default function FriendStatusButton({ friendId }) {
         data?.then(() => setUpdateStatus(!updateStatus) )
     }
 
-
-    console.log(friendRequestStatus)
 
     return (
         <>

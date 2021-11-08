@@ -9,6 +9,12 @@ import FriendVideos from "../../components/Friend-Profile/FriendVideos"
 import useFetch from "../../lib/useFetch"
 import myFetch from "../../lib/myFetch"
 import FriendStatusButton from "../../components/Friend-Profile/FriendStatusButton"
+import { useSelector, useDispatch } from "react-redux"
+import { setGenContext } from '../../lib/store/genContextSlice'
+import AllFriendsLayout from "../../layout/AllFriendsLayout"
+import AppNav from "../../components/AppNav"
+import NoLayout from "../../layout/NoLayout"
+
 
 
 
@@ -22,11 +28,17 @@ export default function FriendProfilePage() {
     let photoRef = useRef(false)
     let videoRef = useRef(false)
 
+    const allFriendsLayout = useSelector((state) => state.genContext.value)
+
+    console.log(`here bitches: ${JSON.stringify(allFriendsLayout)}`)
+
 
     const router = useRouter()
 
     const [forceRender, setForceRender] = useState(true)
     const [isUpdated, setIsUpdated] = useState(false)
+
+
 
     //updates a state variable to trigger a re-render. 
     function ForceRender() {
@@ -34,23 +46,25 @@ export default function FriendProfilePage() {
         return
     }
 
+    if (localStorage.getItem("KEY1") === "1") console.log('its 1')
+    if (localStorage.getItem("KEY1") === "0") console.log('its 0')
 
 
     // because we're not using getServerSideProps(), router.query is only populated on second render
     // after Automatic Static Optimization. friedId will be undefined in the first render
     const friendId = router.query.friendId
 
- 
+
 
     //Call backend API to get friend data and verify if friend is valid
     //also populate the profile and background images 
-    const { fetchData, isFetchError, isFetchLoading } = useFetch(`${friendId ? `http://localhost:4000/api/friend/${friendId}`: 'null'}`, 'GET', null, [friendId,isUpdated ])
-   
+    const { fetchData, isFetchError, isFetchLoading } = useFetch(`${friendId ? `http://localhost:4000/api/friend/${friendId}` : 'null'}`, 'GET', null, [friendId, isUpdated])
+
 
     //GATEKEEPER pattern
-    if(!fetchData) return <div>loading friend data ..</div>
-    if(!friendId && isFetchError) return <div>error..</div>
-    if(friendId && isFetchError) return <div>error..</div>
+    if (!fetchData) return selectLayout(<div>loading friend data ..</div>)
+    if (!friendId && isFetchError) return selectLayout(<div>error..</div>)
+    if (friendId && isFetchError) return selectLayout(<div>error..</div>)
 
     //check whether data is non-empty else redirect to 404 page. this could happen
     //if the user directly entered a bogus friendId in the URL instead of clicking
@@ -67,14 +81,12 @@ export default function FriendProfilePage() {
             router.push('/')
             return null
         }
-        
+
     }
 
-    //console.log(fetchData)
     const [firstName, lastName] = [fetchData.data[0].firstname, fetchData.data[0].lastname]
     //isFriend.current = fetchData.data[1].isFriend;
-    
-    //console.log(isFriend)
+
 
     function handlePostClick(e) {
         e.preventDefault()
@@ -133,51 +145,74 @@ export default function FriendProfilePage() {
         // do nothing yet
     }
 
+    function selectLayout(children) {
+        // if (localStorage?.getItem("KEY1") === "1") {
+        //     return (
+        //         <SiteLayout >
+        //             <AllFriendsLayout>
+        //                 {children}
+        //             </AllFriendsLayout>
+        //         </SiteLayout>
+                
+
+        //     )
+        // } else {
+        //     return (
+                
+        //         <SiteLayout >
+        //             {children}
+        //         </SiteLayout>
+                
+        //     )
+        // }
+        return children
+    }
 
 
     return (
         <>
-            {JSON.stringify(router.query) !== '{}' && <div>
-                <div className="topHalf">
-                    <div className="backdropContainer">
-                        <div className="backdrop"></div>
-                        <div className="image">image</div>
-                    </div>
-                    <div className="name">
-                        <h1>{`${firstName} ${lastName}`}</h1>
-                    </div>
-                    <div className="separator"><div></div></div>
-                    <div className="profileNav">
-
-                        <div className="navContainer">
-                            <div className="leftNav">
-                                <div className="leftItem" onClick={handlePostClick}>Posts</div>
-                                <div className="leftItem" onClick={handleAboutClick}>About</div>
-                                <div className="leftItem" onClick={handleFriendClick}>Friends</div>
-                                <div className="leftItem" onClick={handlePhotosClick}>Photos</div>
-                                <div className="leftItem" onClick={handleVideosClick}>Videos</div>
-                                <div className="leftItem" onClick={handleMoreClick}>More</div>
-                            </div>
-                            <div className="rightNav">
-                                <FriendStatusButton friendId={friendId}/> 
-                                <div className="message">Message</div>
-                                <div className="detail">...</div>
-                            </div>
+            {selectLayout(
+                JSON.stringify(router.query) !== '{}' && <div>
+                    <div className="topHalf">
+                        <div className="backdropContainer">
+                            <div className="backdrop"></div>
+                            <div className="image">image</div>
                         </div>
+                        <div className="name">
+                            <h1>{`${firstName} ${lastName}`}</h1>
+                        </div>
+                        <div className="separator"><div></div></div>
+                        <div className="profileNav">
 
+                            <div className="navContainer">
+                                <div className="leftNav">
+                                    <div className="leftItem" onClick={handlePostClick}>Posts</div>
+                                    <div className="leftItem" onClick={handleAboutClick}>About</div>
+                                    <div className="leftItem" onClick={handleFriendClick}>Friends</div>
+                                    <div className="leftItem" onClick={handlePhotosClick}>Photos</div>
+                                    <div className="leftItem" onClick={handleVideosClick}>Videos</div>
+                                    <div className="leftItem" onClick={handleMoreClick}>More</div>
+                                </div>
+                                <div className="rightNav">
+                                    <FriendStatusButton friendId={friendId} />
+                                    <div className="message">Message</div>
+                                    <div className="detail">...</div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
 
 
-                <div className="bottomHalf">
-                    <div className="contentContainer">
-                        {postRef.current && <FriendPosts friendId={friendId} />}
-                        {aboutRef.current && <FriendAbout friendId={friendId} />}
-                        {friendRef.current && <FriendFriends friendId={friendId} />}
-                        {photoRef.current && <FriendPhotos friendId={friendId} />}
-                        {videoRef.current && <FriendVideos friendId={friendId} />}
+                    <div className="bottomHalf">
+                        <div className="contentContainer">
+                            {postRef.current && <FriendPosts friendId={friendId} />}
+                            {aboutRef.current && <FriendAbout friendId={friendId} />}
+                            {friendRef.current && <FriendFriends friendId={friendId} />}
+                            {photoRef.current && <FriendPhotos friendId={friendId} />}
+                            {videoRef.current && <FriendVideos friendId={friendId} />}
+                        </div>
                     </div>
-                </div>
 
 
 
@@ -185,7 +220,7 @@ export default function FriendProfilePage() {
 
 
 
-                <style jsx>{`
+                    <style jsx>{`
                     .topHalf {
                         border: 1px lightslategrey solid;
                         background: white;
@@ -321,23 +356,36 @@ export default function FriendProfilePage() {
 
 
                     `}</style>
-            </div>}
+                </div>
+            )}
         </>
     )
 }
 
-// export async function getServerSideProps() {
-
-//     return { props: {} }
-// }
 
 
 
 FriendProfilePage.getLayout = function getLayout(page) {
+    if (localStorage?.getItem("KEY1") === "1") {
+        return (
+            <>
+            <SiteLayout>
+                <AllFriendsLayout>
+                    {page}
+                </AllFriendsLayout>
+            </SiteLayout>
+            </>
+            
 
-    return (
-        <SiteLayout>
-            {page}
-        </SiteLayout>
-    )
+        )
+    } else {
+        return (
+            <>
+            <SiteLayout>
+                {page}
+            </SiteLayout>
+            </>
+            
+        )
+    }
 }

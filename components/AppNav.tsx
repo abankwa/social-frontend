@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee, faHouseUser, faVideo, faNewspaper, faUser } from '@fortawesome/free-solid-svg-icons'
-import { IoNotificationsCircleOutline } from 'react-icons/io5'
-import { BsFillChatSquareTextFill,BsSearch } from 'react-icons/bs'
+import { IoNotifications } from 'react-icons/io5'
+import { BsFillChatSquareTextFill,BsSearch,BsPeople,BsNewspaper,BsCameraVideo } from 'react-icons/bs'
+import { GrHomeRounded } from 'react-icons/gr'
 import { FaUserCircle } from 'react-icons/fa'
+import { AiFillMessage } from 'react-icons/ai'
+import { MdOutlineExpandMore } from 'react-icons/md'
 import Link from 'next/link'
 import SearchBar from './Home/SearchBar'
 import SearchBar2 from './Home/SearchBar2'
 
 export default function AppNav() {
+    useEffect(() => {
+        return () => {console.log('appnav unmounting')}
+    },[])
 
     return (
         <>
@@ -20,16 +26,16 @@ export default function AppNav() {
                     </div>
                 </div>
                 <ul className="middleHeader">
-                    <Link href="/home"><li className="midItem"><a ><FontAwesomeIcon icon={faHouseUser} size="2x" /></a></li></Link>
-                    <Link href="/friends"><li className="midItem"><a ><FontAwesomeIcon icon={faHouseUser} size="2x" /></a></li></Link>
-                    <Link href="/video"><li className="midItem"><a ><FontAwesomeIcon icon={faVideo} size="2x" /></a></li></Link>
-                    <Link href="/news"><li className="midItem"><a ><FontAwesomeIcon icon={faNewspaper} size="2x" /></a></li></Link>
+                    <Link href="/home"><li className="midItem"><a ><GrHomeRounded size="25px" /></a></li></Link>
+                    <Link href="/friends"><li className="midItem"><a ><BsPeople size="25px" /></a></li></Link>
+                    <Link href="/video"><li className="midItem"><a ><BsCameraVideo size="25px" /></a></li></Link>
+                    <Link href="/news"><li className="midItem"><a ><BsNewspaper size="25px" /></a></li></Link>
                 </ul>
                 <ul className="rightHeaderContainer">
                     <div className="rightHeader">
-                        <Link href="#"><li className="rightItem"><a><FaUserCircle size="25px" /></a></li></Link>
-                        <Link href="#"><li className="rightItem"><a><BsFillChatSquareTextFill size="25px" /></a></li></Link>
-                        <Link href="#"><li className="rightItem"><a><IoNotificationsCircleOutline size="25px" /></a></li></Link>
+                        <Link href="#"><li className="rightItem"><a><AiFillMessage size="25px" /></a></li></Link>
+                        <Link href="#"><li className="rightItem"><a><IoNotifications size="25px" /></a></li></Link>
+                        <Link href="#"><li className="rightItem"><a><MdOutlineExpandMore size="25px" /></a></li></Link>
                     </div>
 
                 </ul>

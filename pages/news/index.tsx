@@ -8,7 +8,6 @@ import useMyUser from '../../lib/useMyUser'
 export default function NewsPage() {
 
     //Verify Login status
-    //const { data, isLoading, isError } = useUser()
     const {data, isLoading, isError } = useMyUser()
   
     const router = useRouter()

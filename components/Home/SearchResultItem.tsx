@@ -1,22 +1,24 @@
 
 import { useSelector, useDispatch } from 'react-redux'
-import { setFriendId } from "../../lib/store/friendSlice";
+import { setGenContext } from '../../lib/store/genContextSlice'
 import { useRouter } from "next/router";
+import { useEffect } from 'react';
 
 
 export default function SearchResultItem({ item }) {
 
     const router = useRouter()
-    const dispatch = useDispatch()
 
     //when we select a search result store and associated personId into
     //the friendId reduxstore. this will be used to route to friend profile pages.
     //then route to the friend's profile page
     function handleItemClick(e) {
         e.preventDefault()
-        dispatch(setFriendId(item.userid))
+        localStorage.setItem("KEY1", "0");
         router.push(`/${item.userid}`)
     }
+
+
     //TODO: also handle accessibilty where item is selected via keyboard
     //ie. onKeypress etc
 
