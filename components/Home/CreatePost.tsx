@@ -29,7 +29,7 @@ export default function CreatePost({ data }) {
         }
 
         myAddPost(post)
-        mutate(`http://localhost:4000/api/user/${data.data.userId}/posts`)
+        mutate(`${process.env.NEXT_PUBLIC_API_URL}/api/user/${data.data.userId}/posts`)
         refPostText.current.value = "";
     }
 

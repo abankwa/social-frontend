@@ -16,7 +16,7 @@ export default function MessengerSearch1(){
             searchKey = searchKey.toLowerCase()
             try {
                 setIsLoading(true)
-                const raw = await fetch(`http://localhost:4000/api/global-search/${searchKey}`, {
+                const raw = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/global-search/${searchKey}`, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',

@@ -9,22 +9,23 @@ export default function TEST1() {
 
     let x = []
     const [chat, setChat] = useState([])
-    //let socket = io("http://localhost:4000",{transports: ['websocket'], upgrade: false});
+    //let socket = io(`${process.env.NEXT_PUBLIC_API_URL}`,{transports: ['websocket'], upgrade: false});
 
    console.log('rendering...')
          
     
-
+   console.log(process.env.NEXT_PUBLIC_API_URL)
 
 
 
 
     function handleClick() {
         socket.emit('chat', 'yolo')
+        console.log(process.env.NEXT_PUBLIC_API_URL)
     }
 
     function click2() {
-        myFetch('http://localhost:4000/chat', 'GET')
+        myFetch(`${process.env.NEXT_PUBLIC_API_URL}/chat`, 'GET')
     }
 
     if (socket) {

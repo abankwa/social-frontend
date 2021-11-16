@@ -6,13 +6,13 @@ export default function FriendRequestCard({friend, forceRender}) {
 
     async function handleConfirm(e){
 
-        const {data, loading, error} = await myFetch(`http://localhost:4000/api/accept-friend/${friend.userid}`,'POST')
+        const {data, loading, error} = await myFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/accept-friend/${friend.userid}`,'POST')
         data?.then(() => forceRender())
         
     }
 
     async function handleDelete(){
-        const {data, loading, error} = await myFetch(`http://localhost:4000/api/reject-friend/${friend.userid}`,'POST')
+        const {data, loading, error} = await myFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reject-friend/${friend.userid}`,'POST')
         data?.then(() => forceRender())
     }
 

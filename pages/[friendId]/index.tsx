@@ -59,7 +59,7 @@ export default function FriendProfilePage() {
 
     //Call backend API to get friend data and verify if friend is valid
     //also populate the profile and background images 
-    const { fetchData, isFetchError, isFetchLoading } = useFetch(`${friendId ? `http://localhost:4000/api/friend/${friendId}` : 'null'}`, 'GET', null, [friendId, isUpdated])
+    const { fetchData, isFetchError, isFetchLoading } = useFetch(`${friendId ? `${process.env.NEXT_PUBLIC_API_URL}/api/friend/${friendId}` : 'null'}`, 'GET', null, [friendId, isUpdated])
 
 
     //GATEKEEPER pattern

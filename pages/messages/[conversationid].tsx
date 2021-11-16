@@ -29,7 +29,7 @@ export default function ChatPage() {
     const [messageLoading, setMessageLoading] = useState()
 
     useEffect(() => {
-        const data = myFetch(`http://localhost:4000/api/messages/${conversationid}`, 'GET')
+        const data = myFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/messages/${conversationid}`, 'GET')
 
         data.then(x => {
             setMessageData(x[0])

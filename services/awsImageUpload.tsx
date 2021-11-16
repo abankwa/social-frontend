@@ -1,3 +1,4 @@
+// @ts-nocheck
 
 //UPLOAD IMAGE TO S3
 export default async function uploadImage(image) {
@@ -6,7 +7,7 @@ export default async function uploadImage(image) {
 
     //get signed URL via our server
     try {
-        const res1 = await fetch('http://localhost:4000/auth/put-url', {
+        const res1 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/put-url`, {
             method: 'GET',
             credentials: 'include'
         })

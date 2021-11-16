@@ -10,7 +10,7 @@ export default function useMyUser() {
  
 
         useEffect(() => {
-            fetch("http://localhost:4000/auth/token/verify", {
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/token/verify`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include'  //send httponly cookie

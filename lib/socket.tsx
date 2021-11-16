@@ -1,3 +1,4 @@
+// @ts-nocheck
 import io from "socket.io-client";
 
-export const socket = io("http://localhost:4000",{transports: ['websocket'], upgrade: false});
+export const socket = io(`${process.env.NEXT_PUBLIC_API_URL}`,{transports: ['websocket'], upgrade: false});

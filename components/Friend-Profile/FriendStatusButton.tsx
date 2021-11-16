@@ -9,7 +9,7 @@ export default function FriendStatusButton({ friendId }) {
     const [updateStatus, setUpdateStatus] = useState(false)
 
     //refetch when friendId or updateStatus changes
-    const {fetchData, isFetchLoading, isFetchError} = useFetch(`http://localhost:4000/api/verify-friend/${friendId}`,'GET',null,[friendId,updateStatus])
+    const {fetchData, isFetchLoading, isFetchError} = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/verify-friend/${friendId}`,'GET',null,[friendId,updateStatus])
     
     if(isFetchLoading) return null
     const friendRequestStatus = fetchData.data.friendRequestStatus
@@ -18,14 +18,14 @@ export default function FriendStatusButton({ friendId }) {
     async function handleAddFriend(e){
 
         e.preventDefault()
-        const {data, loading, error} = await myFetch(`http://localhost:4000/api/request-friend/${friendId}`,'POST')
+        const {data, loading, error} = await myFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/request-friend/${friendId}`,'POST')
         data?.then(() => setUpdateStatus(!updateStatus) )
 
     }
 
     async function handleAcceptRequest(e){
         e.preventDefault()
-        const {data, loading, error} = await myFetch(`http://localhost:4000/api/accept-friend/${friendId}`,'POST')
+        const {data, loading, error} = await myFetch(`${process.env.NEXT_PUBLIC_API_URL}api/accept-friend/${friendId}`,'POST')
         data?.then(() => setUpdateStatus(!updateStatus) )
     }
 

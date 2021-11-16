@@ -8,7 +8,7 @@ const fetcher = url => fetch(url, {
 }).then(res => res.json())
 
 export default function useGetPost(user){
-    const {data,error,mutate} = useSWR(`http://localhost:4000/api/user/${user.data.userId}/posts`,fetcher, {revalidateOnFocus: true})
+    const {data,error,mutate} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/user/${user.data.userId}/posts`,fetcher, {revalidateOnFocus: true})
     //mutate()
 
     return {

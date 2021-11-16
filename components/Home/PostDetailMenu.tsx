@@ -30,7 +30,7 @@ export default function DropdownMenu({user,post}) {
     
     function handleDeletePost(){
         myDeletePost(post)
-        mutate(`http://localhost:4000/api/user/${user.data.userId}/posts`)
+        mutate(`${process.env.NEXT_PUBLIC_API_URL}/api/user/${user.data.userId}/posts`)
     }
 
     function handleEditPost(){

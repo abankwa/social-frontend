@@ -1,6 +1,8 @@
+// @ts-nocheck
+
 export async function signUpWithEmailAndPassword(credentials) {
     try {
-        const raw = await fetch('http://localhost:4000/auth/signup', {
+        const raw = await fetch(`${process.env.NEXT_PUBLIC_API_URL}auth/signup`, {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: {'Content-Type': 'application/json' },
@@ -17,7 +19,7 @@ export async function signUpWithEmailAndPassword(credentials) {
 export async function signInWithEmailAndPassword(credentials) {
 
     try {
-        const raw = await fetch('http://localhost:4000/auth/signin', {
+        const raw = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/signin`, {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: { 'Content-Type': 'application/json' },
@@ -49,7 +51,7 @@ export async function verifyAccessTokenFromStorage(accessToken) {
 
 export async function signOut(){
     try {
-        const raw = await fetch('http://localhost:4000/auth/signout', {
+        const raw = await fetch(`${process.env.NEXT_PUBLIC_API_URL}auth/signout`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             credentials: 'include'

@@ -12,10 +12,9 @@ const fetcher = url => fetch(url, {
    
 
 export default function useUser (){
-    //const {mutate} = useSWRConfig()
-    //mutate('http://localhost:4000/auth/token/verify')
+   
     
-    const {data,error,mutate} = useSWR('http://localhost:4000/auth/token/verify',fetcher, {revalidateOnFocus: false})
+    const {data,error,mutate} = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/auth/token/verify`,fetcher, {revalidateOnFocus: false})
     mutate()
     // useEffect(() => {
     //     if (!data)return

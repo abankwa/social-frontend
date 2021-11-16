@@ -40,7 +40,7 @@ export default function SearchBar() {
             searchKey = searchKey.toLowerCase()
             try {
                 setIsLoading(true)
-                const raw = await fetch(`http://localhost:4000/api/live-search/${searchKey}`, {
+                const raw = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/live-search/${searchKey}`, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',

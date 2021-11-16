@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from 'react-query'
 
 
 const fetcher = async () => {
-    const raw = await fetch("http://localhost:4000/auth/token/verify", {
+    const raw = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/token/verify`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include'  //send httponly cookie

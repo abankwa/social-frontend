@@ -49,7 +49,7 @@ export default function NewMessage() {
         if (chatMembers.length > 0) {
             setShowMessages(true)
             const members = chatMembers.map((member) => member.userid)
-            const data = myFetch('http://localhost:4000/api/conversation-given-members', 'POST', { data: members })
+            const data = myFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/conversation-given-members`, 'POST', { data: members })
 
             data.then(x => {
                 setFetchData(x[0])
@@ -78,7 +78,7 @@ export default function NewMessage() {
                 //setShowMessages(true)
 
                 //get all the messages for this conversation
-                const data = myFetch(`http://localhost:4000/api/messages/${conversationid}`, 'GET')
+                const data = myFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/messages/${conversationid}`, 'GET')
                 data.then(x => {
                     setMessageData(x[0])
 
@@ -128,7 +128,7 @@ export default function NewMessage() {
             searchKey = searchKey.toLowerCase()
             try {
                 setIsLoading(true)
-                const raw = await fetch(`http://localhost:4000/api/global-search/${searchKey}`, {
+                const raw = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/global-search/${searchKey}`, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',

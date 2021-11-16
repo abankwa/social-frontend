@@ -14,7 +14,7 @@ export default function FriendHomePage() {
     //use this dummy state to force a re-render after a request is accepted or deleted
     const [dummy, setDummy] = useState(false)
 
-    const { fetchData, isFetchError, isFetchLoading } = useFetch('http://localhost:4000/api/friend-requests', 'GET', null, [dummy])
+    const { fetchData, isFetchError, isFetchLoading } = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/friend-requests`, 'GET', null, [dummy])
 
     if (isFetchLoading) return <div>fetching data ...</div>
     if (isFetchError) return <div>error..</div>

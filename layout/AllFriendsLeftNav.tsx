@@ -12,7 +12,7 @@ export default function AllFriendsLeftNav() {
 
     const router = useRouter()
     //initial fetch on page load to populate friend list; only once
-    const {fetchData, isFetchError, isFetchLoading} = useFetch('http://localhost:4000/api/friends','GET', null,[])
+    const {fetchData, isFetchError, isFetchLoading} = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/friends`,'GET', null,[])
 
     //data for friend search
     const [isLoading, setIsLoading] = useState()
@@ -44,7 +44,7 @@ export default function AllFriendsLeftNav() {
             searchKey = searchKey.toLowerCase()
             try {
                 setIsLoading(true)
-                const raw = await fetch(`http://localhost:4000/api/friend-search/${searchKey}`, {
+                const raw = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/friend-search/${searchKey}`, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',

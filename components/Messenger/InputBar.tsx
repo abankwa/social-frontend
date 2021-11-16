@@ -74,7 +74,7 @@ export default function InputBar() {
                     messagetext: messageRef.current.value,
                 }
 
-                const data = myFetch(`http://localhost:4000/api/conversation-with-message`, 'POST', chatData)
+                const data = myFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/conversation-with-message`, 'POST', chatData)
                 data.then(x => {
                     setConversationData(x[0])
                     messageRef.current.value = ""
@@ -93,7 +93,7 @@ export default function InputBar() {
                     conversationid: activeConversation
                 }
 
-                const data = myFetch(`http://localhost:4000/api/message`, 'POST', chatMessage)
+                const data = myFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/message`, 'POST', chatMessage)
                 data.then(x => {
                     setMessageData(x[0])
                     messageRef.current.value = ""

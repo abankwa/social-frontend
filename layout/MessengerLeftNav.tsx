@@ -24,7 +24,7 @@ export default function MessengerLeftNav() {
 
 
     useEffect(() => {
-        const data = myFetch(`http://localhost:4000/api/conversations`, 'GET')
+        const data = myFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/conversations`, 'GET')
 
         data.then(x => {
             setMessageData(x[0])
