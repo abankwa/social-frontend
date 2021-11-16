@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import Home from '../../components/Home/Home'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUserContext } from '../../lib/store/userSlice'

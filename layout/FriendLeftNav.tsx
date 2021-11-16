@@ -1,6 +1,7 @@
-
+// @ts-nocheck
 import React, { Children } from 'react'
 import Link from 'next/link'
+import { IoChevronForwardOutline } from 'react-icons/io'
 
 export default function FriendLeftNav() {
 
@@ -12,15 +13,15 @@ export default function FriendLeftNav() {
             <div className="container">
                 <h1>Friends</h1>
                 <div className="menu">
-                <Link href="/friends">
+                    <Link href="/friends">
                         <div className="itemContainter">
                             <div className="left">
                                 <div className="icon"></div><div >Home</div>
                             </div>
                             <div className="right">
-                                >
+                                ...
                             </div>
-                            
+
                         </div>
                     </Link>
                     <Link href="/friends/requests">
@@ -29,9 +30,9 @@ export default function FriendLeftNav() {
                                 <div className="icon"></div><div >Friend Requests</div>
                             </div>
                             <div className="right">
-                                >
+                                ...
                             </div>
-                            
+
                         </div>
                     </Link>
                     <Link href="/friends/suggestions">
@@ -40,9 +41,9 @@ export default function FriendLeftNav() {
                                 <div className="icon"></div><div >Suggestions</div>
                             </div>
                             <div className="right">
-                                >
+                                ...
                             </div>
-                            
+
                         </div>
                     </Link>
                     <Link href="/friends/list">
@@ -51,9 +52,9 @@ export default function FriendLeftNav() {
                                 <div className="icon"></div><div >All Friends</div>
                             </div>
                             <div className="right">
-                                >
+                                ...
                             </div>
-                            
+
                         </div>
                     </Link>
                     <Link href="/friends/birthdays">
@@ -62,9 +63,9 @@ export default function FriendLeftNav() {
                                 <div className="icon"></div><div >Birthdays</div>
                             </div>
                             <div className="right">
-                                >
+                                ...
                             </div>
-                            
+
                         </div>
                     </Link>
                     <Link href="/friends/friendlists">
@@ -73,9 +74,9 @@ export default function FriendLeftNav() {
                                 <div className="icon"></div><div >Custom Lists</div>
                             </div>
                             <div className="right">
-                                >
+                                ...
                             </div>
-                            
+
                         </div>
                     </Link>
                 </div>

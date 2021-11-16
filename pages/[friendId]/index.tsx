@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SiteLayout from "../../layout/SiteLayout"
 import { useEffect, useRef, useState } from "react"
 import FriendPosts from '../../components/Friend-Profile/FriendPosts'
@@ -389,3 +390,13 @@ FriendProfilePage.getLayout = function getLayout(page) {
         )
     }
 }
+
+FriendProfilePage.getInitialProps  = async (ctx) => {
+    return {foo:'foo'}
+}
+
+
+
+
+
+

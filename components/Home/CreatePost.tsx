@@ -1,7 +1,8 @@
+// @ts-nocheck
 import useSWR, { useSWRConfig } from 'swr'
-import useAddPost from '../../lib/useAddPost'
+import myAddPost from '../../lib/useAddPost'
 import { useRef, useState } from 'react'
-import { uploadImage } from '../../services/awsImageUpload'
+import  uploadImage  from '../../services/awsImageUpload'
 
 
 export default function CreatePost({ data }) {
@@ -27,7 +28,7 @@ export default function CreatePost({ data }) {
             mediaURL: mediaURL
         }
 
-        useAddPost(post)
+        myAddPost(post)
         mutate(`http://localhost:4000/api/user/${data.data.userId}/posts`)
         refPostText.current.value = "";
     }

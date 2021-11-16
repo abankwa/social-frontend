@@ -1,8 +1,6 @@
-
+// @ts-nocheck
 import { useRouter } from 'next/router'
 import useMyUser from '../../lib/useMyUser'
-import { useSelector, useDispatch } from 'react-redux'
-import { setUserContext } from '../../lib/store/userSlice'
 import FriendLayout from '../../layout/FriendLayout'
 import FriendsHome from '../../components/Friends/FriendsHome'
 import SiteLayout from '../../layout/SiteLayout'

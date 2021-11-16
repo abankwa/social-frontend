@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SiteLayout from "../../layout/SiteLayout"
 import NewsLayout from "../../layout/NewsLayout"
 import useUser from '../../lib/useUser'

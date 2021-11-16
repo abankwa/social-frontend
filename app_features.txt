@@ -28,12 +28,15 @@ Messenger
 ---------
 
 Entities: 
-    chat, participants, messages
+    chat, participants, messages, reactions, replies
 
 Relationships:
-    1 chat -> n participants, 1 participant -> n chats  : many-to-many
-    1 chat -> n messages                                : 1-to-many
-    1 participant -> n messages                         : 1-to-many
+    	1 chat -> n participants, 1 participant -> n chats  	: many-to-many
+    	1 chat -> n messages                                	: 1-to-many
+    	1 participant -> n messages                         	: 1-to-many
+    	1 message -> n replies[1 reply -> 1 participant]		: 1-to-many
+	1 message -> n reactions[1 reaction -> 1 participant]	: 1-to-many
+		
 
 chat
     chatId[PK]
@@ -202,6 +205,43 @@ Friend profile page from friendslist
 	      profile page with left nav layout. if not load page with only site layout. unset the key when dismounting from friend profile in useEffect(,[]) return.
 
 
+
+Messenger
+=========
+- messages window for existing conversations, and new chat is different
+- we store the state of the chat input box for conversations but not for new message; 
+	-if a user selected an existing conversation, then typed 'xyz' but didn't send it, we store the textbox state when navigate away and reload it when we return.
+	-if a user created a new conversation, then type 'xyz' but didn't send it, we discard the state of the chat input box.
+
+1. New chat flow ; /messages/new
+	a) user selects new message, then selects a friend
+	b) after user selects a friend,
+		i) check if a conversation exists with the selected friend as the party B. first check conversations with only you and selected user, then check for group
+		   conversations with other participants. 
+		ii) if a conversation is found  load the MessageArea component with the messages for that conversation still inside the /message/new page
+		iii) from here if the user types a message and sends, load the /message/conversationid page with the MessageArea component containing 
+		     the just sent message + old messages.
+		ii) if no conversation is found load the conversation area with chat participants' profile photo(s). when new message is sent create new conversation for
+		    the selected parties.
+		   
+creating a new convo given a participant list
+---------------------------------------------
+0. receive participant list from client
+1. create a convo title name of participants
+2. create a new convo and note id
+3. create entries in conversation_participant table for each participant using new convo id
+
+getting conversationid given a participant list
+-----------------------------------------------------
+0. receive participant list from client
+1. get conversationid given a participant list
+	select conversationid from conversation_participant where participantid in(25,26) group by conversationid having count(conversationid) = 2
+		- for a given conversation, each participant will have one entry in the conversation_participant table hence the conversationid count in the query should the same as the number of participants.
+		- each participant list must generate one conversationid from the above query, representing that single group chat.
+	
+getting messages given a conversationid
+---------------------------------------
+1. select * from chatmessage where conversationid = x
 
 	
 	

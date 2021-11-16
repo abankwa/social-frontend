@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SiteLayout from './SiteLayout'
 import VideoSideNav from './VideoSideNav'
 

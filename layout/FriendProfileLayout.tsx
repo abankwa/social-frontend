@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SiteLayout from "./SiteLayout"
 import Link from 'next/link'
 import { useSelector } from 'react-redux'

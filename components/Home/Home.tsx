@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import { signOut } from '../../services/authServerAPI'
 import AppNav from '../AppNav'
 import useUser from '../../lib/useUser'

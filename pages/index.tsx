@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect, useContext } from 'react'
 import Login from '../components/Login/Login'
 import { useRouter } from 'next/router'

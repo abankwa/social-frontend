@@ -1,6 +1,7 @@
+// @ts-nocheck
 import { useState, useRef, useEffect } from "react";
 import { useSWRConfig } from "swr";
-import useDeletePost from "../../lib/useDeletePost";
+import myDeletePost from "../../lib/useDeletePost";
 
 export default function DropdownMenu({user,post}) {
     const {mutate} = useSWRConfig()
@@ -28,7 +29,7 @@ export default function DropdownMenu({user,post}) {
 
     
     function handleDeletePost(){
-        useDeletePost(post)
+        myDeletePost(post)
         mutate(`http://localhost:4000/api/user/${user.data.userId}/posts`)
     }
 

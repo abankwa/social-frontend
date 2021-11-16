@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SearchResultItem from "./SearchResultItem"
 import { useState, useRef, useEffect } from "react";
 import { RenderCounter, MyRef } from "../../lib/search";

@@ -1,6 +1,6 @@
 
 //UPLOAD IMAGE TO S3
-export async function uploadImage(image) {
+export default async function uploadImage(image) {
     //TODO: data validation
     if (!image) { console.log('no image'); return null }
 

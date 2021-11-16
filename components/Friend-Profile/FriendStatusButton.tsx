@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState } from "react"
 import myFetch from "../../lib/myFetch"
 import useFetch from "../../lib/useFetch"

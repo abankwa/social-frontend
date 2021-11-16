@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import { useSelector, useDispatch } from 'react-redux'
 import { setGenContext } from '../../lib/store/genContextSlice'
 import { useRouter } from "next/router";

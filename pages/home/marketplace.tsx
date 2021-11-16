@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SiteLayout from "../../layout/SiteLayout"
 import useUser from '../../lib/useUser'
 import { useRouter } from 'next/router'

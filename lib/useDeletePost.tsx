@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 export default async function useDeletePost(post){
     try {
         //DELETE POST FROM DB

@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import { useEffect } from 'react'
 //import { verifyAccessTokenFromCookie } from '../services/authServerAPI2'
 import useSWR, {useSWRConfig}  from 'swr'

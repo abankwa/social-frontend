@@ -1,3 +1,4 @@
+// @ts-nocheck
 import useSWR, {useSWRConfig}  from 'swr'
 
 const fetcher = url => fetch(url, {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import {CgMoreAlt} from 'react-icons/cg'

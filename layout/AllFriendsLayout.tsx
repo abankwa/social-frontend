@@ -1,3 +1,4 @@
+// @ts-nocheck
 import AppNav from "../components/AppNav";
 import AllFriendsLeftNav from "./AllFriendsLeftNav";
 

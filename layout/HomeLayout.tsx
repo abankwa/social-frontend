@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SiteLayout from './SiteLayout'
 import HomeLeftNav from './HomeLeftNav'
 import HomeRightNav from './HomeRightNav'

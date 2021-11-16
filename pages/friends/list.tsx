@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import { useRouter } from 'next/router'
 import useMyUser from '../../lib/useMyUser'
 import { useSelector, useDispatch } from 'react-redux'
@@ -36,7 +36,7 @@ export default function FriendList() {
       <div className="container">
         <div className="content">
           <div className="icon"><BsFillPeopleFill /></div>
-          <div className="text">Select people's names to preview their profile</div>
+          <div className="text">Select people&apos;s names to preview their profile</div>
         </div>
       </div>
 

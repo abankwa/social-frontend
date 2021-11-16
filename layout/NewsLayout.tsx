@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SiteLayout from './SiteLayout'
 import NewsSideNav from './NewsSideNav'
 

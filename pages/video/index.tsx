@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SiteLayout from "../../layout/SiteLayout"
 import VideoLayout from "../../layout/VideoLayout"
 import useUser from '../../lib/useUser'

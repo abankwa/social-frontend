@@ -1,3 +1,4 @@
+// @ts-nocheck
 import router from "next/router"
 import { useState,useRef } from "react"
 import {signUpWithEmailAndPassword} from '../../services/authServerAPI'

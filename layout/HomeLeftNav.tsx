@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import React from 'react'
 import Link from 'next/link'
 import {useSelector,useDispatch} from 'react-redux'
@@ -28,7 +28,7 @@ export default function HomeLeftNav(){
                     <div className="icon"></div><div >Friends</div>
                 </div>
                 </Link>
-                <Link href="/home/messenger">
+                <Link href="/messages">
                 <div className="item">
                     <div className="icon"></div><div >Messenger</div>
                 </div>

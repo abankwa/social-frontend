@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import { useRouter } from 'next/router'
 import useMyUser from '../../lib/useMyUser'
 import useFetch from '../../lib/useFetch'
@@ -25,7 +25,7 @@ export default function FriendAbout({ friendId }) {
     //if the user directly entered a bogus friendId in the URL instead of clicking
     //on a search result.
     if (fetchData) {
-        if (fetchData.status == 'success' && fetchData.data.length === 0) {
+        if (fetchData.status === 'success' && fetchData.data.length === 0) {
             console.log('no user found, redirect to 404 page')
             router.push('/404')
         }

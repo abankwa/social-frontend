@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import Home from '../../components/Home/Home'
 import SiteLayout from '../../layout/SiteLayout'
 import HomeLayout from '../../layout/HomeLayout'

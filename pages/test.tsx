@@ -10,6 +10,7 @@ export default function Test() {
 
     const fileRef = useRef(null)
     const [state, setState] = useState()
+    const [items, setItems] = useState(['yolo'])
     const router = useRouter()
 
     async function handleFileUpload(e){
@@ -27,6 +28,16 @@ export default function Test() {
             query: { testid: 'yolo', x: 300},
           })
     }
+
+    const element = items.map(item => {
+        return <div key={item}>{item}</div>
+    })
+
+    function handleAdd(e){
+        e.preventDefault()
+        setItems([...items,'test'])
+    }
+
     return (
         <>
 
@@ -40,10 +51,10 @@ export default function Test() {
                     <div className="servicesContainer">
                         <button className="services">Services</button>
                         <ul className="servicesMenu">
-                            <li><a href="/">Shopping</a></li>
-                            <li><a href="#">Xbox</a></li>
-                            <li><a href="#">PS5</a></li>
-                            <li><a href="#">OCulus</a></li>
+                            <li><Link href="/">Shopping</Link></li>
+                            <li><Link href="/">x Box</Link></li>
+                            <li><Link href="/">PS 5</Link></li>
+                            <li><Link href="/">psp</Link></li>
                         </ul>
                     </div>
                     <div className="contact">
@@ -98,6 +109,10 @@ export default function Test() {
 
             </div>
             <button onClick={handleClick}>test route</button>
+            <button onClick={handleAdd}>add</button>
+            <div>{element}</div>
+            <div>a</div>
+            <div>a</div>
 
 
 

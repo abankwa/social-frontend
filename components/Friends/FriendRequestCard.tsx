@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import myFetch from "../../lib/myFetch"
 
 export default function FriendRequestCard({friend, forceRender}) {

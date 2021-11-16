@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import { useRouter } from 'next/router'
 import useMyUser from '../../lib/useMyUser'
 

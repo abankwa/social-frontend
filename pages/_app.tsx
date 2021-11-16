@@ -1,3 +1,4 @@
+// @ts-nocheck
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -26,7 +27,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             {getLayout(
                 <QueryClientProvider client={queryClient}>
                     <Component {...pageProps} />
-                    <ReactQueryDevtools initialIsOpen={false} />
+                    {/*<ReactQueryDevtools initialIsOpen={false} />*/}
                 </QueryClientProvider>)}
         </Provider>)
 
