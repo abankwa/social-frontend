@@ -7,9 +7,10 @@ export const messengerSlice = createSlice({
       showNewMessage: false,
       chatMembers: [],
       chatMessages: [],
+      conversations: [],
       unsentChatMessage: "",
       activeConversation: "",
-      test: true
+      testMessages: []
 
     },
     reducers: {
@@ -27,7 +28,6 @@ export const messengerSlice = createSlice({
       },
       loadChatMessage: (state, action) => {
         state.chatMessages = action.payload
-        console.log(`loading messages: ${state.chatMessages}`)
       },
       addChatMessage: (state, action) => {
         state.chatMessages.push(action.payload)
@@ -37,13 +37,21 @@ export const messengerSlice = createSlice({
       },
       setActiveConversation: (state,action) => {
         state.activeConversation = action.payload
-        console.log(`convo: ${action.payload}`)
+      },
+      addConversation: (state, action) => {
+        state.conversations.push(action.payload)
+      },
+      loadConversations: (state, action) => {
+        state.conversations = action.payload;
+      },
+      setTestMessages: (state, action) => {
+        state.testMessages.push(action.payload)
       }
 
     }
   })
   
   // Action creators are generated for each case reducer function
-  export const { setShowNewMessage,addChatMember,removeChatMember, removeAllChatMembers, addChatMessage, addUnsentMessage, setActiveConversation,loadChatMessage } = messengerSlice.actions
+  export const { setShowNewMessage,addChatMember,removeChatMember, removeAllChatMembers, addChatMessage, addUnsentMessage, setActiveConversation,loadChatMessage, addConversation,loadConversations, setChatSocket,setTestMessages } = messengerSlice.actions
   
   export default messengerSlice.reducer

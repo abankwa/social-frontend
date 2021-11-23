@@ -41,7 +41,6 @@ export async function verifyAccessTokenFromCookie() {
             credentials: 'include'  //send httponly cookie
         })
         const data = await raw.json()
-        //console.log(data)
         return data;
     } catch (error) {
         throw error

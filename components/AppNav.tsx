@@ -1,21 +1,40 @@
+//@ts-nocheck
 import React, { useEffect } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faHouseUser, faVideo, faNewspaper, faUser } from '@fortawesome/free-solid-svg-icons'
 import { IoNotifications } from 'react-icons/io5'
-import { BsFillChatSquareTextFill,BsSearch,BsPeople,BsNewspaper,BsCameraVideo } from 'react-icons/bs'
+import { BsFillChatSquareTextFill, BsSearch, BsPeople, BsNewspaper, BsCameraVideo } from 'react-icons/bs'
 import { GrHomeRounded } from 'react-icons/gr'
-import { FaUserCircle } from 'react-icons/fa'
 import { AiFillMessage } from 'react-icons/ai'
 import { MdOutlineExpandMore } from 'react-icons/md'
 import Link from 'next/link'
-import SearchBar from './Home/SearchBar'
 import SearchBar2 from './Home/SearchBar2'
+import { useRouter } from 'next/router'
+import useMyUser from '../lib/useMyUser'
+import { setUserContext } from '../lib/store/userSlice'
+import { useDispatch } from 'react-redux'
+
 
 export default function AppNav() {
-    useEffect(() => {
-        return () => {console.log('appnav unmounting')}
-    },[])
+    const dispatch = useDispatch()
 
+    const router = useRouter()
+    const { data, isLoading, isError } = useMyUser()
+
+    //store user context to be used by all components
+    //use effect prevents race condition. ensures AppNav finishes rendering before dispatching 
+    //context
+    useEffect(() => {
+        if(data) dispatch(setUserContext(data.data))
+    },[data])
+
+
+
+    if (isLoading) return <div>loading from index...</div>;
+    if (isError) return <div>failed to load</div>;
+
+    //login session not found, redirect to login page
+    if (data.status === 'error') router.push('/')
+    
+    
     return (
         <>
             <div className="container">

@@ -3,8 +3,7 @@ import { useState, useContext } from 'react'
 import { signInWithEmailAndPassword } from '../../services/authServerAPI'
 import {useRouter} from 'next/router'
 import CreateAccountModal from './CreateAccountModal'
-import { setUserContext } from '../../lib/store/userSlice'
-import { useDispatch } from 'react-redux'
+//import { setUserContext } from '../../lib/store/userSlice'
 
 
 export default function Login(props) {
@@ -15,7 +14,7 @@ export default function Login(props) {
     const router = useRouter()
     const [showModal, setShowModal] = useState(false)
 
-    const dispatch = useDispatch()
+   
 
 
     function handleOpenModal(e){
@@ -31,9 +30,9 @@ export default function Login(props) {
     async function handleLogin(e) {
         e.preventDefault()
         const res = await signInWithEmailAndPassword({ email, password })
-        console.log(res)
+
         if(res.status === 'success'){
-            dispatch(setUserContext(res.data))
+            //dispatch(setUserContext(res.data))
             router.push('/home')
         }
         else setSignInError("an error occured")

@@ -5,14 +5,10 @@ import {useSelector,useDispatch} from 'react-redux'
 
 export default function HomeLeftNav(){
 
-    // const {value} = useSelector(state => state.userContext)
+    const context = useSelector(state => state.userContext.user)
     
-
-    // const firstName = value.data.firstName;
-    // const lastName = value.data.lastName;
-    const firstName = 'kk'
-    const lastName = 'kk'
-
+    const firstName = context.firstName
+    const lastName = context.lastName
 
 
     return (

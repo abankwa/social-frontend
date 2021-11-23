@@ -7,16 +7,24 @@ import { RiFileGifLine, RiVideoAddFill } from 'react-icons/ri'
 import { AiOutlinePaperClip, AiFillDollarCircle } from 'react-icons/ai'
 import { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
-import { addChatMessage, addUnsentMessage } from '../../lib/store/messengerSlice'
+import { addChatMessage, addUnsentMessage, addConversation, setActiveConversation, removeAllChatMembers } from '../../lib/store/messengerSlice'
 import myFetch from '../../lib/myFetch'
+import { useRouter } from 'next/router'
+import { io } from 'socket.io-client'
+import { socket } from '../../lib/socket'
+
 
 export default function InputBar() {
+
 
     const [isText, setIsText] = useState(false)
     const [showToolBar, setShowToolBar] = useState(false)
     const messageRef = useRef()
+    const sendButtonRef = useRef()
     const dispatch = useDispatch()
+    const router = useRouter()
     const unsentChatMessage = useSelector(state => state.messengerContext.unsentChatMessage)
+
 
     const activeConversation = useSelector(state => state.messengerContext.activeConversation)
     const chatMembers = useSelector(state => state.messengerContext.chatMembers)
@@ -30,7 +38,36 @@ export default function InputBar() {
     const [conversationLoading, setConversationLoading] = useState()
     const [conversationError, setConversationError] = useState()
 
-    //
+    useEffect(() => {
+        // socket = io(`${process.env.NEXT_PUBLIC_API_URL}`, { transports: ['websocket'], upgrade: false });
+        // return () => {
+        //     socket.off('chat', () => { })
+        //     socket.removeAllListeners()
+        // }
+        
+        const socket = new WebSocket('ws://localhost:4000')
+        socket.addEventListener('message',(data) => {
+            console.log(data)
+        })
+        if(socket.readyState === 1)socket.send('heya')
+        
+        
+        return () => {socket.close()}
+
+    },[socket])
+    
+
+    //socket = io(`${process.env.NEXT_PUBLIC_API_URL}`,{transports: ['websocket'], upgrade: false});
+
+    // if (socket) {
+    //     socket.on("message", data => {
+    //         console.log(data)
+    //     })
+
+    // }
+
+
+    //INPUT MESSAGE PERSISTENCE
     useEffect(() => {
         //load previously unsent chat message in input box
         if (unsentChatMessage) {
@@ -41,6 +78,8 @@ export default function InputBar() {
 
     }, [unsentChatMessage])
 
+    //store message being typed on every stroke. if user navigates away without sending,
+    //repopulate the text field so they continue where they left off.
     function handleChange(e) {
         if (e.target.value) setIsText(true)
         else setIsText(false)
@@ -48,11 +87,11 @@ export default function InputBar() {
         dispatch(addUnsentMessage(messageRef.current.value))
     }
 
-
-
+    //toggle right side pane for friend profile details.
     function handleShowToolBar(e) {
         setShowToolBar(!showToolBar)
     }
+
 
     function handleSendMessage() {
 
@@ -65,20 +104,39 @@ export default function InputBar() {
             // on the /new page), create a new conversation for the selected participant(s), send the message
             // and goto the conversation page.
             if (!activeConversation) {
-                console.log('new convo')
-                console.log(chatMembers)
-
 
                 const chatData = {
                     chatMembers: chatMembers.map(member => member.userid),
                     messagetext: messageRef.current.value,
                 }
 
+                //create new conversation and save the message
                 const data = myFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/conversation-with-message`, 'POST', chatData)
                 data.then(x => {
                     setConversationData(x[0])
                     messageRef.current.value = ""
-                    //push new message to store if success??
+
+
+                    if (x[0].status === 'success') {
+
+                        //push new message to store to update message box
+                        dispatch(addChatMessage(x[0].data[0]))
+
+                        //push new conversation to store to update conversation nav
+                        const conversation = {
+                            conversationid: x[0].data[0].conversationid,
+                            conversationdata: 'get the convo date'
+                        }
+
+                        dispatch(addConversation(conversation))
+                        //clean up
+                        //1. set active conversation
+                        dispatch(setActiveConversation(conversation.conversationid))
+                        //2. empty member list
+                        dispatch(removeAllChatMembers())
+                        //3. redirect to /messages/conversationid page
+                        router.push(`/messages/${conversation.conversationid}`)
+                    }
 
                     //update the conversation list store??
                 })
@@ -86,7 +144,6 @@ export default function InputBar() {
                 //if this is an existing conversation (ie. we selected friends we have a previous conversation),
                 //goto the conversation page and send the message
             } else {
-                console.log('existing convo')
 
                 const chatMessage = {
                     messagetext: messageRef.current.value,
@@ -97,27 +154,22 @@ export default function InputBar() {
                 data.then(x => {
                     setMessageData(x[0])
                     messageRef.current.value = ""
-                    //push new message to store if success??
+                    if (x[0].status === 'success') {
+                        //push new message to store to update message box
+                        dispatch(addChatMessage(x[0].data[0]))
+
+                    }
                 })
             }
-
-            //console.log(messageRef.current.value)
-
-            console.log(`active conversation: ${activeConversation}`)
-
-            // const message = {
-            //     type: "out", 
-            //     text: messageRef.current.value
-            // }
-            // dispatch(addChatMessage(message))
-
-            // //clear textbox after sending message
-            // messageRef.current.value = ""
 
         }
     }
 
-    console.log(messageData)
+    //when a user presses enter after typing in chat box, click the send button
+    function handleKeyDown(e) {
+        if (e.keyCode === 13) sendButtonRef.current.click()
+    }
+
 
     return (
         <>
@@ -139,10 +191,10 @@ export default function InputBar() {
                         <div> <RiFileGifLine size="20px" /></div>
                     </div>
                     <div className="txtArea">
-                        <div className="txtBox"><input className="txtInput" type="text" placeholder="Aa" ref={messageRef} onChange={handleChange}></input></div>
+                        <div className="txtBox"><input className="txtInput" type="text" placeholder="Aa" ref={messageRef} onChange={handleChange} onSubmit={handleSendMessage} onKeyDown={handleKeyDown} ></input></div>
                         <div className="emoji"><FaSmile size="20px" /></div>
                     </div>
-                    {isText ? <div className="sendOrLike"><IoMdSend size="20px" onClick={handleSendMessage} /></div> :
+                    {isText ? <div className="sendOrLike" ref={sendButtonRef} onClick={handleSendMessage}><IoMdSend size="20px" /></div> :
                         <div className="sendOrLike"><AiFillLike size="20px" /></div>}
                 </div>
             </div>

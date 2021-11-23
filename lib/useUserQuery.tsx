@@ -14,6 +14,5 @@ const fetcher = async () => {
 
 
 export default function useUserQuery() {
-    console.log('call using query')
     return useQuery('verifylogin',fetcher,{retry: false, refetchOnWindowFocus: false})
 }

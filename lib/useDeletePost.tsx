@@ -9,7 +9,6 @@ export default async function useDeletePost(post){
             credentials: 'include'
         })
         const data = await raw.json()
-        console.log(data)
         return data
     } catch (error) {
         console.log(error)

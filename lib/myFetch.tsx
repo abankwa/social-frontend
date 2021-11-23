@@ -10,7 +10,7 @@ export default async function myFetch(url, method = 'GET', body?) {
     let loading = false
 
     try {
-        console.log('trying ..')
+
         loading = true
         const raw = await fetch(url, {
             method: method,

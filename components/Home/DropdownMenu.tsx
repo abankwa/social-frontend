@@ -8,7 +8,6 @@ export default function DropdownMenu() {
 
     useEffect(() => {
         const handleWindowClick = (e) => {
-            console.log(e.target)
             if(dropdownRef.current !== null && !dropdownRef.current.contains(e.target)) {
                 setIsDropdownActive(!isDropdownActive)
             }

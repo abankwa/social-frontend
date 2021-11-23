@@ -42,7 +42,6 @@ export default function Home({data}) {
             </div>
         ))
     } else {
-        console.log(JSON.stringify(postData))
         router.push('/')
     }
     // if (isLoading) return (<div>Loading ..</div>)
@@ -50,7 +49,6 @@ export default function Home({data}) {
 
     //only get data value after we're sure that data will have a value. ie on
     //the second render pass after promise is resolved.
-    //console.log(JSON.stringify(data))
 
     return (
         <>

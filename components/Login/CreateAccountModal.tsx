@@ -26,7 +26,6 @@ export default function CreateAccountModal({handleCloseModal, showModal}) {
         if(data.status === 'success') router.push('/home')
         else setSignUpError("an error occured")
 
-        console.log(data)
 
         refEmail.current.value = ""
         refPassword.current.value = ""

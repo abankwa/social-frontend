@@ -53,7 +53,6 @@ export default function SearchBar() {
             } catch (error) {
                 setIsError(true)
                 setIsLoading(false)
-                console.log(error)
             }
         } else setData("") //clear search after deletion textbox entries
 

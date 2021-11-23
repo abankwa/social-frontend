@@ -9,7 +9,6 @@ export async function signUpWithEmailAndPassword(credentials) {
             credentials: 'include'
         })
         const data = await raw.json()
-        console.log(data)
         return data
     } catch (error) {
         console.log(error)

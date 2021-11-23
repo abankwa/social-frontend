@@ -15,9 +15,7 @@ export default function Test() {
 
     async function handleFileUpload(e){
         e.preventDefault()
-       // console.log(fileRef.current.files[0])
        const mediaURL = await uploadImage(fileRef.current.files[0])
-       console.log(fileRef.current.files[0])
         setState(mediaURL)
     }
 

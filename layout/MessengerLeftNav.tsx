@@ -7,15 +7,18 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from "react-redux"
-import { setShowNewMessage, removeAllChatMembers } from '../lib/store/messengerSlice'
+import { setShowNewMessage, removeAllChatMembers, addConversation, loadConversations } from '../lib/store/messengerSlice'
 import myFetch from '../lib/myFetch'
 import ConversationCard from '../components/Messenger/ConversationCard'
 
 export default function MessengerLeftNav() {
-
-    const router = useRouter()
-    const showNewMessage = useSelector((state) => state.messengerContext.showNewMessage)
     const dispatch = useDispatch()
+    const router = useRouter()
+    const conversations = useSelector(state => state.messengerContext.conversations)
+    
+    //toggle for new message nav card
+    const showNewMessage = useSelector((state) => state.messengerContext.showNewMessage)
+    
 
     //get all existing conversations
     const [conversationData, setMessageData] = useState()
@@ -28,10 +31,10 @@ export default function MessengerLeftNav() {
 
         data.then(x => {
             setMessageData(x[0])
+            dispatch(loadConversations(x[0].data))
         })
     },[])
 
-    console.log(conversationData)
 
     //show a new nav card for New message when we click a new message
     function handleNewMessage() {
@@ -47,9 +50,12 @@ export default function MessengerLeftNav() {
 
     if(coversationLoading) return <div>loading</div>
     if(!conversationData) return <div>loading...</div>
-    console.log(conversationData)
 
-    const conversationList = conversationData.data.map(convo => {
+    // const conversationList = conversationData.data.map(convo => {
+    //     return <ConversationCard key={convo.conversationid} data={convo} />
+    // })
+
+    const conversationList = conversations.map(convo => {
         return <ConversationCard key={convo.conversationid} data={convo} />
     })
 

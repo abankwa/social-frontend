@@ -31,8 +31,6 @@ export default function FriendProfilePage() {
 
     const allFriendsLayout = useSelector((state) => state.genContext.value)
 
-    console.log(`here bitches: ${JSON.stringify(allFriendsLayout)}`)
-
 
     const router = useRouter()
 
@@ -46,10 +44,6 @@ export default function FriendProfilePage() {
         setForceRender(!forceRender)
         return
     }
-
-    if (localStorage.getItem("KEY1") === "1") console.log('its 1')
-    if (localStorage.getItem("KEY1") === "0") console.log('its 0')
-
 
     // because we're not using getServerSideProps(), router.query is only populated on second render
     // after Automatic Static Optimization. friedId will be undefined in the first render
@@ -73,7 +67,6 @@ export default function FriendProfilePage() {
     if (fetchData) {
         //empty data means no user found
         if (fetchData.status === 'success' && fetchData.data.length === 0) {
-            console.log('no user found, redirect to 404 page')
             router.push('/404')
             return null
         }

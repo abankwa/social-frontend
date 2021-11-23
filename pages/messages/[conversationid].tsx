@@ -13,21 +13,29 @@ import { loadChatMessage,setActiveConversation } from '../../lib/store/messenger
 
 
 
+
 export default function ChatPage() {
     
+    
+
     const router = useRouter()
     const dispatch = useDispatch()
     const [showInfo, setShowInfo] = useState(false)
     const conversationid = router.query?.conversationid
 
-    console.log(`query: ${JSON.stringify(router.query)}`)
-    console.log(conversationid)
     
-    //get all messages for this conversation
     const [messageData, setMessageData] = useState()
     const [messageError, setMessageError] = useState()
     const [messageLoading, setMessageLoading] = useState()
 
+    
+    const [participantData, setParticipantData] = useState()
+    const [participantError, setParticipantError] = useState()
+    const [participantLoading, setParticipantLoading] = useState()
+
+
+
+    //get all messages for this conversation
     useEffect(() => {
         const data = myFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/messages/${conversationid}`, 'GET')
 
@@ -37,15 +45,34 @@ export default function ChatPage() {
         //set the currently active conversation
         dispatch(setActiveConversation(conversationid))
     },[conversationid])
-    
+
 
     useEffect(() => {
         if(messageData) {
-            console.log(messageData)
+
             if(messageData.status === 'success') dispatch(loadChatMessage(messageData.data))   
         }
     },[messageData])
+
+
+
+    //get all participants for this conversation
+
+    useEffect(() => {
+        const data = myFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/participants/${conversationid}`, 'GET')
+        data.then(x => {
+            setParticipantData(x[0].data)
+        })
+    },[conversationid])
     
+    let members = ""
+    if(participantData){
+
+          participantData.map(x => {
+              if(members === "") members = `${x.firstname} ${x.lastname}`
+              else members = `${members}, ${x.firstname} ${x.lastname}`})
+            
+    }   
 
    
 
@@ -62,7 +89,7 @@ export default function ChatPage() {
                         <div className="profile">
                             <div className="photo"></div>
                             <div className="nameBox">
-                                <div className="name">John Appleseed</div>
+                                {participantData && <div className="name">{members}</div>}
                                 <div className="status">Active 16Hrs Ago</div>
                             </div>
                         </div>
@@ -110,7 +137,7 @@ export default function ChatPage() {
                 .profile {
                     display: flex;
                     align-items: center;
-                    width: 250px;
+                    width: 100%;
                     height: 100%;
 
                 }
@@ -125,6 +152,7 @@ export default function ChatPage() {
                     flex-direction: column;
                     justify-content: center;
                     align-items: flex-start;
+    
                 }
 
                 .controls {
@@ -133,6 +161,7 @@ export default function ChatPage() {
                     align-items: center;
                     width: 150px;
                     height: 100%;
+                    border: green 1px solid;
                     
                 }
                 .phone, .camera,.info {

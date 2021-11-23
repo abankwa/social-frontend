@@ -14,6 +14,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
     "@reduxjs/toolkit": "^1.6.2",
+    "@types/ws": "^8.2.0",
     "env-cmd": "^10.1.0",
     "next": "11.1.2",
     "nodemon": "^2.0.13",
@@ -23,7 +24,9 @@
     "react-query": "^3.27.0",
     "react-redux": "^7.2.6",
     "socket.io-client": "^4.3.2",
-    "swr": "^1.0.1"
+    "swr": "^1.0.1",
+    "uuid": "^8.3.2",
+    "ws": "^8.2.3"
   },
   "devDependencies": {
     "@types/react": "17.0.24",

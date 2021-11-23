@@ -16,9 +16,7 @@ export default function SearchBar2() {
     const [isError, setIsError] = useState()
     const [data, setData] = useState()
 
-    useEffect(() => {
-        return () => {console.log('search bar unmounting')}
-    },[])
+
 
 
     //show the search box if we click the search button

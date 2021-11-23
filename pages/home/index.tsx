@@ -7,7 +7,7 @@ import useMyUser from '../../lib/useMyUser'
 
 
 export default function HomePage() {
-
+  
   const router = useRouter()
   const { data, isLoading, isError } = useMyUser()
 

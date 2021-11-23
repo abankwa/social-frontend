@@ -12,7 +12,6 @@ export default function DropdownMenu({user,post}) {
     
     useEffect(() => {
         const handleWindowClick = (e) => {
-            console.log(e.target)
             //hide dropdown after we click outside or make make a selection
             if(dropdownRef.current !== null && (!dropdownRef.current.contains(e.target) || dropdownRef.current.contains(e.target)) ) {
                 setIsDropdownActive(false)
@@ -34,7 +33,7 @@ export default function DropdownMenu({user,post}) {
     }
 
     function handleEditPost(){
-        console.log(JSON.stringify(user))
+
     }
 
     return (

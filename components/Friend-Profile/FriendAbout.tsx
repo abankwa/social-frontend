@@ -15,11 +15,9 @@ export default function FriendAbout({ friendId }) {
     //fetch person or friend data. get friendId slug from SSR context
 
      
-    console.log(friendId)
 
 
     const { fetchData, isFetchError, isFetchLoading } = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/friend/${friendId}`, 'GET', {friendId},[])
-    if (fetchData) console.log(fetchData)
 
     //check whether data is non-empty else redirect to 404 page. this could happen
     //if the user directly entered a bogus friendId in the URL instead of clicking

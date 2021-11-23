@@ -13,7 +13,6 @@ export default function FriendPosts() {
     const {data, isLoading, isError } = useMyUser()
   
     const router = useRouter()
-    //console.log(router.query)
     
     if (isLoading) return <div>loading...</div>;
     if (isError) return <div>failed to load</div>;// TODO: techically login failed hence redirect login page

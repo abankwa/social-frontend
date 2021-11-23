@@ -18,6 +18,7 @@ export default function NewMessage() {
     const dispatch = useDispatch()
 
     const [showMessages, setShowMessages] = useState(false)
+    
     //get previously selected chat members in new chat page
     const chatMembers = useSelector((state) => state.messengerContext.chatMembers)
 
@@ -112,8 +113,6 @@ export default function NewMessage() {
     }, [messageData])
 
 
-
-    if (messageData?.data) console.log(messageData.data)
 
     //Handle Live search
     const [isLoading, setIsLoading] = useState()
